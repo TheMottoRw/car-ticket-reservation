@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="sbt: io.ebean:ebean-platform-postgres:13.17.3-jakarta:jar" external-system-id="SBT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/io/ebean/ebean-platform-postgres/13.17.3-jakarta/ebean-platform-postgres-13.17.3-jakarta.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/io/ebean/ebean-platform-postgres/13.17.3-jakarta/ebean-platform-postgres-13.17.3-jakarta-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/io/ebean/ebean-platform-postgres/13.17.3-jakarta/ebean-platform-postgres-13.17.3-jakarta-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

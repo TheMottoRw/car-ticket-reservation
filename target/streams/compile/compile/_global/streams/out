@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/media/asua/Damn/Development/java/car-ticket-reservation/app/controllers/ViewController.java:12:1: method index() is already defined in class controllers.ViewController[0m
+[0m[[0m[31merror[0m] [0m[0mpublic Result index() {[0m
+[0m[[0m[31merror[0m] [0m[0m        return ok(views.html.destinations.render());[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
