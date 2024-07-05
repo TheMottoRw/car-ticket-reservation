@@ -10,6 +10,7 @@ lazy val root = (project in file("."))
       jdbc,
       javaJdbc,
       "com.h2database" % "h2" % "2.2.224",
+      "mysql" % "mysql-connector-java" % "8.0.32",
 
       "org.mindrot" % "jbcrypt" % "0.4",
       "com.auth0" % "java-jwt" % "4.4.0",

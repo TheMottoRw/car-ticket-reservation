@@ -29,13 +29,13 @@ object companies extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.
       {
 
 
-Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_display_(Seq[Any](format.raw/*1.35*/("""
+Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered companies")/*1.37*/("Companies")/*1.50*/ {_display_(Seq[Any](format.raw/*1.52*/("""
     """),format.raw/*2.5*/("""<div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Authors table</h6>
+                        <h6>Registered companies <a href=""""),_display_(/*7.60*/routes/*7.66*/.ViewController.companyAdd()),format.raw/*7.94*/("""" class="btn btn-dark btn-sm" style="margin-left:70% ">Add company</a> </h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
@@ -52,8 +52,6 @@ Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_displ
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Phone</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            User type</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Status</th>
                                         <th class="text-secondary opacity-7">Action</th>
                                     </tr>
@@ -66,22 +64,16 @@ Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_displ
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/static/assets/img/team-3.jpg" class="avatar avatar-sm me-3" alt="user2">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Alexa Liras</h6>
+                                                    <h6 class="mb-0 text-sm">Horizon express</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs text-secondary mb-0">jon@yopmail.com</p>
+                                            <p class="text-xs text-secondary mb-0">horizon@yopmail.com</p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="badge badge-sm bg-gradient-secondary">0726153026</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">admin</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">Active</span>
@@ -89,6 +81,9 @@ Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_displ
                                         <td class="align-middle">
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Edit
+                                            </a>
+                                            <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
+                                                delete
                                             </a>
                                         </td>
                                     </tr>
@@ -99,22 +94,16 @@ Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_displ
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/static/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user2">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Alexa Jeff Alexdanria</h6>
+                                                    <h6 class="mb-0 text-sm">Volcano express</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs text-secondary mb-0">jef@yopmail.com</p>
+                                            <p class="text-xs text-secondary mb-0">volcano@yopmail.com</p>
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="badge badge-sm bg-gradient-secondary">0726153026</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">admin</span>
                                         </td>
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">Active</span>
@@ -135,8 +124,8 @@ Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_displ
                 </div>
             </div>
         </div>
-        """),_display_(/*107.10*/commons/*107.17*/.footer()),format.raw/*107.26*/("""
-    """),format.raw/*108.5*/("""</div>
+        """),_display_(/*96.10*/commons/*96.17*/.footer()),format.raw/*96.26*/("""
+    """),format.raw/*97.5*/("""</div>
 """)))}))
       }
     }
@@ -154,9 +143,9 @@ Seq[Any](_display_(/*1.2*/layout/*1.8*/.main("Registered users")/*1.33*/ {_displ
               /*
                   -- GENERATED --
                   SOURCE: app/views/companies.scala.html
-                  HASH: fd5454e15f6a353359fec32e6a49f2c78481d65d
-                  MATRIX: 993->1|1006->7|1039->32|1078->34|1109->39|8101->7005|8118->7012|8149->7021|8182->7026
-                  LINES: 32->1|32->1|32->1|32->1|33->2|138->107|138->107|138->107|139->108
+                  HASH: 98713d6fb398fa8dd3eb340740ccb703402a4c1d
+                  MATRIX: 993->1|1006->7|1043->36|1064->49|1103->51|1134->56|1404->300|1418->306|1466->334|7429->6272|7445->6279|7475->6288|7507->6293
+                  LINES: 32->1|32->1|32->1|32->1|32->1|33->2|38->7|38->7|38->7|127->96|127->96|127->96|128->97
                   -- GENERATED --
               */
           

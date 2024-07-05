@@ -1,0 +1,716 @@
+{
+	"info": {
+		"_postman_id": "712c6ee4-a160-41ec-bd20-9dff35ade4c5",
+		"name": "Ticket Reservation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"volcano@yopmail.com\",\n    \"password\":12345\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/login",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"asua\",\n    \"email\":\"asua@yopmail.com\",\n    \"phone\":\"0780000002\",\n    \"password\":12345\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/user",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User load",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"asua@yopmail.com\",\n    \"phone\":\"0780000002\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/users",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User loadbyid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"asua@yopmail.com\",\n    \"phone\":\"0780000002\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/user/2",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Volcano ltd\",\n    \"email\":\"asua@yopmail.com\",\n    \"user_type\":\"company\",\n    \"phone\":\"0780000002\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/user/2",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"user",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Destination add",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"departure\":\"Huye\",\n    \"arrival\":\"Kigali\",\n    \"price\":1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/destination",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"destination"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Destination loadbyid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"departure\":\"Huye\",\n    \"arrival\":\"Kigali\",\n    \"price\":1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/destination/1",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"destination",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Destination load",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"departure\":\"Huye\",\n    \"arrival\":\"Kigali\",\n    \"price\":1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/destinations",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"destinations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Destination update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"departure\":\"Huye\",\n    \"arrival\":\"Muhanga\",\n    \"price\":1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/destination/1",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"destination",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Station save",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Taba\",\n    \"destination\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/station",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"station"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Station load",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Taba\",\n    \"destination\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/stations",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"stations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Station loadbyId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Taba\",\n    \"destination\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/station/1",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"station",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Station update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg0ODEyLCJleHAiOjE3MjAxOTU2MTJ9.7DjYMrwlGYluRipQMq2f4BcMg8_zm87V4z_0_wYq2uI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Gakorogo\",\n    \"destination\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/station/1",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"station",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule save",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bus_plate_no\":\"RAF12\",\n    \"destination\":1,\n    \"departure_date\":\"2024-06-10 12:00\",\n    \"passenger_limit\":15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/schedule",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"schedule"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule load",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bus_plate_no\":\"RAF12\",\n    \"destination\":1,\n    \"departure_date\":\"2024-06-10 12:00\",\n    \"passenger_limit\":15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/schedules",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"schedules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule loadbyid",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bus_plate_no\":\"RAF12\",\n    \"destination\":1,\n    \"departure_date\":\"2024-06-10 12:00\",\n    \"passenger_limit\":15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/schedule/1",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"schedule",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schedule update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"bus_plate_no\":\"RAF123C\",\n    \"destination\":1,\n    \"departure_date\":\"2024-06-10 13:00\",\n    \"passenger_limit\":15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/schedule/1",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"schedule",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reservation save",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passenger\":1,\n    \"station\":1,\n    \"schedule\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/reserve",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"reserve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reservation load",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passenger\":1,\n    \"station\":1,\n    \"schedule\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/reservations",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reservation cancel",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjUwMDAiLCJpZCI6IjIiLCJlbWFpbCI6InZvbGNhbm9AeW9wbWFpbC5jb20iLCJwaG9uZSI6IjA3ODAwMDAwMDIiLCJ1c2VyX3R5cGUiOiJjb21wYW55IiwiaWF0IjoxNzIwMTg2MzE0LCJleHAiOjE3MjAxOTcxMTR9.Eu-nNRffaUYidEvJl6B0TxUKlFyFZEq4lu8oOs7tcvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passenger\":1,\n    \"station\":1,\n    \"schedule\":1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{play9000}}/reservation/1/cancel",
+					"host": [
+						"{{play9000}}"
+					],
+					"path": [
+						"reservation",
+						"1",
+						"cancel"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

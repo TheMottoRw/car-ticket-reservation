@@ -21,10 +21,10 @@ import play.data._
 import play.core.j.PlayFormsMagicForJava._
 import scala.jdk.CollectionConverters._
 
-object main extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template2[String,Html,play.twirl.api.HtmlFormat.Appendable] {
+object main extends _root_.play.twirl.api.BaseScalaTemplate[play.twirl.api.HtmlFormat.Appendable,_root_.play.twirl.api.Format[play.twirl.api.HtmlFormat.Appendable]](play.twirl.api.HtmlFormat) with _root_.play.twirl.api.Template3[String,String,Html,play.twirl.api.HtmlFormat.Appendable] {
 
   /**/
-  def apply/*1.2*/(title: String)(content: Html):play.twirl.api.HtmlFormat.Appendable = {
+  def apply/*1.2*/(title: String)(page: String)(content: Html):play.twirl.api.HtmlFormat.Appendable = {
     _display_ {
       {
 
@@ -46,11 +46,11 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
         <link href="/static/assets/css/nucleo-svg.css" rel="stylesheet" />
             <!-- CSS Files -->
         <link id="pagestyle" href="/static/assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
-    </head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <body class="g-sidenav-show  bg-gray-100">
         """),_display_(/*21.10*/commons/*21.17*/.sidebar()),format.raw/*21.27*/("""
         """),format.raw/*22.9*/("""<main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
-            """),_display_(/*23.14*/commons/*23.21*/.header()),format.raw/*23.30*/("""
+            """),_display_(/*23.14*/commons/*23.21*/.header(page)),format.raw/*23.34*/("""
                 """),_display_(/*24.18*/content),format.raw/*24.25*/("""
 
         """),format.raw/*26.9*/("""</main>
@@ -76,9 +76,9 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
     }
   }
 
-  def render(title:String,content:Html): play.twirl.api.HtmlFormat.Appendable = apply(title)(content)
+  def render(title:String,page:String,content:Html): play.twirl.api.HtmlFormat.Appendable = apply(title)(page)(content)
 
-  def f:((String) => (Html) => play.twirl.api.HtmlFormat.Appendable) = (title) => (content) => apply(title)(content)
+  def f:((String) => (String) => (Html) => play.twirl.api.HtmlFormat.Appendable) = (title) => (page) => (content) => apply(title)(page)(content)
 
   def ref: this.type = this
 
@@ -88,8 +88,8 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
               /*
                   -- GENERATED --
                   SOURCE: app/views/layout/main.scala.html
-                  HASH: 44a4672b3c63d39ae7741a2533b4e1e55dd31cbe
-                  MATRIX: 918->1|1042->32|1294->258|1319->263|2110->1027|2126->1034|2157->1044|2193->1053|2326->1159|2342->1166|2372->1175|2417->1193|2445->1200|2482->1210|2649->1349|2678->1350|2727->1371|2788->1404|2817->1405|2919->1479|2948->1480|2997->1501|3168->1644|3197->1645|3250->1670|3367->1759|3396->1760|3441->1777|3470->1778|3506->1787
+                  HASH: c778c215698f7b4dbecc701e7acf54da243dc2fc
+                  MATRIX: 925->1|1063->46|1315->272|1340->277|2241->1152|2257->1159|2288->1169|2324->1178|2457->1284|2473->1291|2507->1304|2552->1322|2580->1329|2617->1339|2784->1478|2813->1479|2862->1500|2923->1533|2952->1534|3054->1608|3083->1609|3132->1630|3303->1773|3332->1774|3385->1799|3502->1888|3531->1889|3576->1906|3605->1907|3641->1916
                   LINES: 27->1|32->2|38->8|38->8|51->21|51->21|51->21|52->22|53->23|53->23|53->23|54->24|54->24|56->26|61->31|61->31|62->32|63->33|63->33|64->34|64->34|65->35|67->37|67->37|68->38|70->40|70->40|71->41|71->41|72->42
                   -- GENERATED --
               */

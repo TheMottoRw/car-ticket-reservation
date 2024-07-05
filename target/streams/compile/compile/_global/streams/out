@@ -1,4 +1,12 @@
-[0m[[0m[31merror[0m] [0m[0m/media/asua/Damn/Development/java/car-ticket-reservation/app/controllers/ViewController.java:12:1: method index() is already defined in class controllers.ViewController[0m
-[0m[[0m[31merror[0m] [0m[0mpublic Result index() {[0m
-[0m[[0m[31merror[0m] [0m[0m        return ok(views.html.destinations.render());[0m
-[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m/home/legion/Documents/Legion/Development/java/car-ticket-reservation/app/views/destinations.scala.html:2:9: type mismatch;[0m
+[0m[[0m[31merror[0m] [0m[0m found   : play.twirl.api.HtmlFormat.Appendable[0m
+[0m[[0m[31merror[0m] [0m[0m    (which expands to)  play.twirl.api.Html[0m
+[0m[[0m[31merror[0m] [0m[0m required: String[0m
+[0m[[0m[31merror[0m] [0m[0m    <div class="container-fluid py-4">[0m
+[0m[[0m[31merror[0m] [0m[0m        ^[0m
+[0m[[0m[31merror[0m] [0m[0m/home/legion/Documents/Legion/Development/java/car-ticket-reservation/app/views/destinations.scala.html:1:34: missing argument list for method apply in object main[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `apply _` or `apply(_)(_)(_)` instead of `apply`.[0m
+[0m[[0m[31merror[0m] [0m[0m@layout.main("Registered users") {[0m
+[0m[[0m[31merror[0m] [0m[0m                                 ^[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
