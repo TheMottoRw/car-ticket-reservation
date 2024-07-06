@@ -57,19 +57,23 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
     </body>
             <!-- plugins:js -->
 
-        <script>
-                window.addEventListener("DOMContentLoaded",function()"""),format.raw/*31.70*/("""{"""),format.raw/*31.71*/("""
-                    """),format.raw/*32.21*/("""// routeGuard();
-                """),format.raw/*33.17*/("""}"""),format.raw/*33.18*/(""")
-                document.querySelector("#aLogout").onclick = (event) => """),format.raw/*34.73*/("""{"""),format.raw/*34.74*/("""
-                    """),format.raw/*35.21*/("""event.preventDefault();
+
+    <script src="/static/helper/utils.js"></script>
+
+    <script src="/static/helper/validators.js"></script>
+    <script>
+                window.addEventListener("DOMContentLoaded",function()"""),format.raw/*35.70*/("""{"""),format.raw/*35.71*/("""
+                    """),format.raw/*36.21*/("""// routeGuard();
+                """),format.raw/*37.17*/("""}"""),format.raw/*37.18*/(""")
+                document.querySelector("#aLogout").onclick = (event) => """),format.raw/*38.73*/("""{"""),format.raw/*38.74*/("""
+                    """),format.raw/*39.21*/("""event.preventDefault();
                     let isConfirmed = confirm("Are you sure you want to logout");
-                    if (isConfirmed) """),format.raw/*37.38*/("""{"""),format.raw/*37.39*/("""
-                        """),format.raw/*38.25*/("""localStorage.clear();
+                    if (isConfirmed) """),format.raw/*41.38*/("""{"""),format.raw/*41.39*/("""
+                        """),format.raw/*42.25*/("""localStorage.clear();
                         window.location = '/';
-                    """),format.raw/*40.21*/("""}"""),format.raw/*40.22*/("""
-                """),format.raw/*41.17*/("""}"""),format.raw/*41.18*/("""
-        """),format.raw/*42.9*/("""</script>
+                    """),format.raw/*44.21*/("""}"""),format.raw/*44.22*/("""
+                """),format.raw/*45.17*/("""}"""),format.raw/*45.18*/("""
+        """),format.raw/*46.9*/("""</script>
     </body>
 </html>"""))
       }
@@ -88,9 +92,9 @@ Seq[Any](format.raw/*2.1*/("""<!DOCTYPE html>
               /*
                   -- GENERATED --
                   SOURCE: app/views/layout/main.scala.html
-                  HASH: c778c215698f7b4dbecc701e7acf54da243dc2fc
-                  MATRIX: 925->1|1063->46|1315->272|1340->277|2241->1152|2257->1159|2288->1169|2324->1178|2457->1284|2473->1291|2507->1304|2552->1322|2580->1329|2617->1339|2784->1478|2813->1479|2862->1500|2923->1533|2952->1534|3054->1608|3083->1609|3132->1630|3303->1773|3332->1774|3385->1799|3502->1888|3531->1889|3576->1906|3605->1907|3641->1916
-                  LINES: 27->1|32->2|38->8|38->8|51->21|51->21|51->21|52->22|53->23|53->23|53->23|54->24|54->24|56->26|61->31|61->31|62->32|63->33|63->33|64->34|64->34|65->35|67->37|67->37|68->38|70->40|70->40|71->41|71->41|72->42
+                  HASH: 1b7aa9f0430cccae5effc40cadfd2496eb0918c4
+                  MATRIX: 925->1|1063->46|1315->272|1340->277|2241->1152|2257->1159|2288->1169|2324->1178|2457->1284|2473->1291|2507->1304|2552->1322|2580->1329|2617->1339|2891->1585|2920->1586|2969->1607|3030->1640|3059->1641|3161->1715|3190->1716|3239->1737|3410->1880|3439->1881|3492->1906|3609->1995|3638->1996|3683->2013|3712->2014|3748->2023
+                  LINES: 27->1|32->2|38->8|38->8|51->21|51->21|51->21|52->22|53->23|53->23|53->23|54->24|54->24|56->26|65->35|65->35|66->36|67->37|67->37|68->38|68->38|69->39|71->41|71->41|72->42|74->44|74->44|75->45|75->45|76->46
                   -- GENERATED --
               */
           

@@ -37,6 +37,7 @@ public class Users extends Controller {
             if (body == null) {
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_OCCURED_MESSAGE)));
             }
+            if(!body.has("password")) body.put("password",12345);
             String formValidation = validateSignup(body);
             if(!formValidation.equals("valid"))
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, formValidation)));
@@ -84,7 +85,7 @@ public class Users extends Controller {
     public Result findByType(Http.Request request) {
 //        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
         String userType = request.queryString("user_type").get();
-        List<UsersModel> users = UsersModel.find.query().where().eq("user_type", userType).findList();
+        List<UsersModel> users = UsersModel.find.query().where().eq("user_type", userType).eq("is_deleted", false).findList();
         return ok(Json.toJson(users));
     }
 
@@ -97,7 +98,7 @@ public class Users extends Controller {
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.INVALID_EMAIL)));
         if (!Validator.password(body.get("password").asText()))
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_WEAK_PASSWORD)));
-        UsersModel userInfo = UsersModel.find.query().where().eq("email", body.get("email").textValue()).findOne();
+        UsersModel userInfo = UsersModel.find.query().where().eq("email", body.get("email").textValue()).eq("is_deleted", false).findOne();
         if (userInfo != null) {
             Long userId = Long.valueOf(String.valueOf(userInfo.getId()));
             System.out.println(userInfo.getPassword());
@@ -249,8 +250,8 @@ public class Users extends Controller {
             UsersModel usersModel = UsersModel.find.byId(Long.valueOf(id));
             if (usersModel == null)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-            if (!jwtAuthenticator.parseData(request,"user_type").equals("admin"))
-                return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_ACCESS_DENIED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
+//            if (!jwtAuthenticator.parseData(request,"user_type").equals("admin"))
+//                return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_ACCESS_DENIED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
             usersModel.setDeleted(true);
             usersModel.setDeletedAt(DateUtil.currentTime());
             usersModel.update();
@@ -310,7 +311,7 @@ public class Users extends Controller {
 //        if(email.trim().isEmpty()) return "Email should not be empty";
 //        if(!Validator.email(email)) return "Invalid email address";
         if(!Validator.phoneNumber(phone)) return "Invalid phone number";
-        if(!Validator.password(password)) return "Password must be 6 or more characters including lowercase,uppercase,numbers and special characters";
+//        if(!Validator.password(password)) return "Password must be 6 or more characters including lowercase,uppercase,numbers and special characters";
         return "valid";
     }
     public String validateUpdate(ObjectNode data){

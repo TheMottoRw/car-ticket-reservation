@@ -46,6 +46,7 @@ public class Constants {
     public static String ERROR_NOUSER_TYPE_MESSAGE = "No user type information found";
     public static String ERROR_ACCESS_DENIED = "Access denied";
     public static String ERROR_NOAUTH_HEADER_MESSAGE = "You don't have permission to access this resource.";
+    public static String ERROR_EXPIRED_TOKEN = "Expired token";
     public static String ERROR_INVALID_TOKEN = "Invalid token";
     //Destination
     public static String DESTINATION_SAVED_MESSAGE = "Destination information saved";

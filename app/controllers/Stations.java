@@ -39,7 +39,7 @@ public class Stations extends Controller {
             }
             if (destination == null)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-            int stationExist = StationModel.find.query().where().eq("name",body.get("name").asText()).eq("destination_id",body.get("destination").asText()).findCount();
+            int stationExist = StationModel.find.query().where().eq("name",body.get("name").asText()).eq("destination_id",body.get("destination").asText()).eq("is_deleted",false).findCount();
             if (stationExist>0)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_STATION_ALREADY_EXIST)));
             StationModel station = new StationModel(body.get("name").asText(),previousStation);
@@ -63,6 +63,12 @@ public class Stations extends Controller {
     public Result find(Http.Request request) {
 //        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
         List<StationModel> destinations = StationModel.find.query().where().eq("is_deleted", false).findList();
+        return ok(Json.toJson(destinations));
+    }
+//    @Security.Authenticated
+    public Result findStationsByDestination(Http.Request request,String destination) {
+//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
+        List<StationModel> destinations = StationModel.find.query().where().eq("destination_id", destination).eq("is_deleted", false).findList();
         return ok(Json.toJson(destinations));
     }
     public Result update(Http.Request request,String id) {

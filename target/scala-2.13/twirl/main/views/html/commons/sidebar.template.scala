@@ -33,15 +33,15 @@ Seq[Any](format.raw/*1.1*/("""<aside class="sidenav navbar navbar-vertical navba
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand m-0" href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html" target="_blank">
-            <img src="../assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold">Ticket Reservation</span>
+"""),format.raw/*5.101*/("""
+            """),format.raw/*6.13*/("""<span class="ms-1 font-weight-bold">Ticket Reservation</span>
         </a>
     </div>
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link  " href="../pages/tables.html">
+                <a class="nav-link  " href=""""),_display_(/*13.46*/routes/*13.52*/.ViewController.companies()),format.raw/*13.79*/("""">
                     <i class="bi bi-building"></i> Companies
                 </a>
             </li>
@@ -51,25 +51,30 @@ Seq[Any](format.raw/*1.1*/("""<aside class="sidenav navbar navbar-vertical navba
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href=""""),_display_(/*23.44*/routes/*23.50*/.ViewController.destinations()),format.raw/*23.80*/("""">
+                <a class="nav-link" href=""""),_display_(/*23.44*/routes/*23.50*/.ViewController.stations()),format.raw/*23.76*/("""">
+                    <i class="bi bi-stack"></i> Stations
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href=""""),_display_(/*28.44*/routes/*28.50*/.ViewController.schedules()),format.raw/*28.77*/("""">
                     <i class="bi bi-clock-fill"></i> Schedules
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href=""""),_display_(/*28.45*/routes/*28.51*/.ViewController.destinations()),format.raw/*28.81*/("""">
+                <a class="nav-link " href=""""),_display_(/*33.45*/routes/*33.51*/.ViewController.reservations()),format.raw/*33.81*/("""">
                     <i class="bi bi-cash"></i> Reservations
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link  " href="../pages/billing.html">
-                    <span class="nav-link-text ms-1">Billing</span>
-                </a>
-            </li>
-            <li class="nav-item mt-3">
+"""),format.raw/*37.38*/("""
+"""),format.raw/*38.72*/("""
+"""),format.raw/*39.72*/("""
+"""),format.raw/*40.25*/("""
+"""),format.raw/*41.22*/("""
+            """),format.raw/*42.13*/("""<li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
             </li>
             <li class="nav-item">
-                <a class="nav-link  " href="../pages/sign-up.html">
+                <a class="nav-link" href="#" id="aLogout">
                     <span class="nav-link-text ms-1"><i class="ni-bold-down"></i>Sign out</span>
                 </a>
             </li>
@@ -93,9 +98,9 @@ Seq[Any](format.raw/*1.1*/("""<aside class="sidenav navbar navbar-vertical navba
               /*
                   -- GENERATED --
                   SOURCE: app/views/commons/sidebar.scala.html
-                  HASH: 780aa274aa90378d444373bddac0430759470ee7
-                  MATRIX: 999->0|2130->1104|2145->1110|2196->1140|2409->1326|2424->1332|2475->1362|2685->1545|2700->1551|2751->1581
-                  LINES: 32->1|49->18|49->18|49->18|54->23|54->23|54->23|59->28|59->28|59->28
+                  HASH: a100fb5b0834026a2e90f7212916df7ac52fc94c
+                  MATRIX: 999->0|1485->558|1525->571|1890->909|1905->915|1953->942|2160->1122|2175->1128|2226->1158|2439->1344|2454->1350|2501->1376|2704->1552|2719->1558|2767->1585|2977->1768|2992->1774|3043->1804|3173->1943|3202->2015|3231->2087|3260->2112|3289->2134|3330->2147
+                  LINES: 32->1|36->5|37->6|44->13|44->13|44->13|49->18|49->18|49->18|54->23|54->23|54->23|59->28|59->28|59->28|64->33|64->33|64->33|68->37|69->38|70->39|71->40|72->41|73->42
                   -- GENERATED --
               */
           

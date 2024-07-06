@@ -57,18 +57,32 @@
                 <h5>Login to your account</h5>
               </div>
               <div class="card-body">
-                <form role="form text-left">
+                <div class="alert alert-success" id="responseSuccess" style="display: none"></div>
+                <div class="alert alert-danger" id="responseFail" style="display: none"></div>
+                <form role="form text-left" id="loginForm">
                   <div class="mb-3">
                     <input type="email" class="form-control" placeholder="Email" id="email" aria-label="Email" aria-describedby="email-addon">
                   </div>
                   <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                    <input type="password" class="form-control" id="password" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
                   </div>
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign in</button>
+                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" id="btnLogin">Sign in</button>
                   </div>
                   <p class="text-sm mt-3 mb-0">Doesn't have an account? <a href="@routes.ViewController.signup()" class="text-dark font-weight-bolder">Sign up</a></p>
                 </form>
+                <form class="pt-3" id="verifyAccountForm" style="display: none">
+                  <div class="form-group">
+                    <input type="text" name="verification_code" class="form-control" id="verification_code" placeholder="Verification code" required>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-primary w-100" type="submit" id="btnVerify">Verify account</button>
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-info w-100" type="submit" id="btnResend">Resend code</button>
+                  </div>
+                </form>
+
               </div>
             </div>
           </div>
@@ -82,6 +96,8 @@
     <script src="/static/assets/js/core/bootstrap.min.js"></script>
     <script src="/static/assets/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="/static/assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="/static/helper/utils.js"></script>
+    <script src="/static/helper/validators.js"></script>
     <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -95,6 +111,165 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
       <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+    <script>
+            redirectIfLoggedIn();
+            // document.querySelector("#lnkBackToLogin").onclick = function (){
+            //   event.preventDefault();
+            //   document.querySelector("#loginForm").style.display='block';
+            //   document.querySelector("#verifyAccountForm").style.display='none';
+            // }
+            document.querySelector("#btnLogin").onclick = () => {
+              event.preventDefault();
+              console.log("Login called");
+              login();
+            }
+            document.querySelector("#btnVerify").onclick = () => {
+              event.preventDefault();
+              verifyAccount();
+            }
+            document.querySelector("#btnResend").onclick = () => {
+              event.preventDefault();
+              resendCode();
+            }
+
+            function redirectIfLoggedIn() {
+              if (isLoggedIn()) {
+                let userType = localStorage.getItem("user_type");
+                if (userType === 'admin') {
+                  window.location = '/companies';
+                } else {
+                  window.location = '/destinations';
+                }
+              }
+            }
+
+            function isLoggedIn() {
+              return localStorage.getItem("user_type") !== null;
+            }
+
+            async function login() {
+              const elFail = document.querySelector("#responseFail"),
+                      elSuccess = document.querySelector("#responseSuccess");
+              const data = {
+                email: document.querySelector("#email").value,
+                password: document.querySelector("#password").value
+              }
+              const emailValidation = validateEmailAddress(data.email);
+              if(!emailValidation.status){
+                elFail.setAttribute("style", "display:block");
+                elFail.innerHTML=emailValidation.message;
+                elSuccess.setAttribute("style", "display:none");
+                clearResponse();
+                return;
+              }
+              var requestOptions = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              };
+              const res = await fetch(`${apiUrl}/login`, requestOptions)
+                      .then(response => response.json())
+                      .then(result => result)
+                      .catch(error => console.log('error', error));
+              if (res.token) {
+                elSuccess.setAttribute("style", "display:block");
+                elFail.setAttribute("style", "display:none");
+                elSuccess.innerHTML = "Logged in successfully";
+                document.querySelector("#email").value = "";
+                document.querySelector("#password").value = "";
+                let obj = res.data;
+                localStorage.setItem("id", obj.id);
+                localStorage.setItem("name", obj.name);
+                localStorage.setItem("email", obj.email);
+                localStorage.setItem("phone", obj.phone);
+                localStorage.setItem("user_type", obj.user_type);
+                localStorage.setItem("status", obj.status);
+                localStorage.setItem("is_verified", obj.verified);
+                localStorage.setItem("token", res.token);
+                if(obj.verified){
+                  if (obj.user_type == "admin")
+                    window.location = '/companies';
+                  else
+                    window.location = '/destinations';
+                }else{
+                  document.getElementById("loginForm").style.display='none';
+                  document.getElementById("verifyAccountForm").style.display='block';
+                }
+              } else {
+                elFail.setAttribute("style", "display:block");
+                elSuccess.setAttribute("style", "display:none");
+                elFail.innerHTML = res.message;
+              }
+            }
+            async function verifyAccount() {
+              const data = {
+                code: document.querySelector("#verification_code").value
+              }
+              var requestOptions = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              };
+              const res = await fetch(`${apiUrl}/user/${localStorage.getItem("id")}/verify`, requestOptions)
+                      .then(response => response.json())
+                      .then(result => result)
+                      .catch(error => console.log('error', error));
+              if (res.token) {
+                let el = document.querySelector("#responseSuccess");
+                el.setAttribute("style", "display:block");
+                document.querySelector("#responseFail").setAttribute("style", "display:none");
+                el.innerHTML = "Account verified successful";
+                let obj = res.data;
+                localStorage.setItem("is_verified", 1);
+                if (obj.user_type == "admin")
+                  window.location = '/companies';
+                else
+                  window.location = '/destinations';
+
+              } else {
+                let el = document.querySelector("#responseFail");
+                el.setAttribute("style", "display:block");
+                document.querySelector("#responseSuccess").setAttribute("style", "display:none");
+                el.innerHTML = res.message;
+              }
+              clearResponse();
+
+            }
+            async function resendCode() {
+              const data = {
+                email: localStorage.getItem("email")
+              }
+              var requestOptions = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                  "Content-Type": "application/json"
+                }
+              };
+              const res = await fetch(`${apiUrl}/user/resend/code`, requestOptions)
+                      .then(response => response.json())
+                      .then(result => result)
+                      .catch(error => console.log('error', error));
+              if (res.status) {
+                let el = document.querySelector("#responseSuccess");
+                el.setAttribute("style", "display:block");
+                document.querySelector("#responseFail").setAttribute("style", "display:none");
+                el.innerHTML = res.message;
+              } else {
+                let el = document.querySelector("#responseFail");
+                el.setAttribute("style", "display:block");
+                document.querySelector("#responseSuccess").setAttribute("style", "display:none");
+                el.innerHTML = res.message;
+              }
+              clearResponse();
+            }
+
+    </script>
+
   </body>
 
 </html>

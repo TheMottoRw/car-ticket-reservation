@@ -28,6 +28,7 @@ public class Destinations extends Controller {
     public Result save(Http.Request request) {
         try{
             String userId = jwtAuthenticator.parseData(request,"id");
+            System.out.println(userId);
             ObjectNode body = (ObjectNode) request.body().asJson();
             if (body == null) {
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_OCCURED_MESSAGE)));
@@ -54,8 +55,11 @@ public class Destinations extends Controller {
     }
 //        @Security.Authenticated
     public Result find(Http.Request request) {
-//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-        List<DestinationModel> destinations = DestinationModel.find.query().where().eq("is_deleted", false).findList();
+        String userId = jwtAuthenticator.parseData(request,"id");
+        System.out.println(userId);
+        if(userId.isEmpty()) return unauthorized(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_EXPIRED_TOKEN)));
+        if(!jwtAuthenticator.parseData(request,"user_type").equals("company")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
+        List<DestinationModel> destinations = DestinationModel.find.query().where().eq("company_id", userId).eq("is_deleted", false).findList();
         return ok(Json.toJson(destinations));
     }
     public Result update(Http.Request request,String id) {
@@ -87,7 +91,7 @@ public class Destinations extends Controller {
             String userId = jwtAuthenticator.parseData(request,"id");
             ObjectNode body = (ObjectNode) request.body().asJson();
 
-            DestinationModel destination = DestinationModel.find.query().where().eq("id", id).eq("is_deleted",false).findOne();
+            DestinationModel destination = DestinationModel.find.query().where().eq("id", id).eq("company_id", userId).eq("is_deleted",false).findOne();
             if (destination == null)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_DESTINATION_NOTEXIST)));
             destination.setDeleted(true);
@@ -96,6 +100,6 @@ public class Destinations extends Controller {
         }catch(Exception e){
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, e.getMessage())));
         }
-        return ok(Json.toJson(new SuccessMessageDTO(Constants.SUCCESS, Constants.STATION_DELETED_MESSAGE)));
+        return ok(Json.toJson(new SuccessMessageDTO(Constants.SUCCESS, Constants.DESTINATION_DELETED_MESSAGE)));
     }
 }

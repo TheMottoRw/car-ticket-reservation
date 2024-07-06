@@ -10,7 +10,7 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers.javascript {
 
-  // @LINE:50
+  // @LINE:66
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -18,7 +18,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:50
+    // @LINE:66
     def at: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.at",
       """
@@ -30,7 +30,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:40
+  // @LINE:55
   class ReverseSchedules(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -38,7 +38,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:40
+    // @LINE:55
     def save: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Schedules.save",
       """
@@ -48,27 +48,17 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:41
-    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Schedules.find",
-      """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/schedules"})
-        }
-      """
-    )
-  
-    // @LINE:42
-    def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Schedules.findById",
+    // @LINE:59
+    def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Schedules.delete",
       """
         function(id0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/schedule/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/schedule/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0)) + "/delete"})
         }
       """
     )
   
-    // @LINE:43
+    // @LINE:58
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Schedules.update",
       """
@@ -78,9 +68,29 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:57
+    def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Schedules.findById",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/schedule/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:56
+    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Schedules.find",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/schedules"})
+        }
+      """
+    )
+  
   }
 
-  // @LINE:14
+  // @LINE:24
   class ReverseUsers(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -88,7 +98,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:21
+    // @LINE:31
     def lock: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.lock",
       """
@@ -98,7 +108,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:28
+    // @LINE:38
     def updatePassword: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.updatePassword",
       """
@@ -108,7 +118,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:14
+    // @LINE:24
     def save: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.save",
       """
@@ -118,7 +128,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:22
+    // @LINE:32
     def unlock: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.unlock",
       """
@@ -128,7 +138,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:23
+    // @LINE:33
     def verifyAccount: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.verifyAccount",
       """
@@ -138,7 +148,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:24
+    // @LINE:34
     def forgotPassword: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.forgotPassword",
       """
@@ -152,7 +162,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:27
+    // @LINE:37
     def resetPassword: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.resetPassword",
       """
@@ -162,7 +172,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:20
+    // @LINE:30
     def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.delete",
       """
@@ -172,7 +182,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:25
+    // @LINE:35
     def verifyResetCode: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.verifyResetCode",
       """
@@ -182,7 +192,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:18
+    // @LINE:28
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.update",
       """
@@ -192,7 +202,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:16
+    // @LINE:26
     def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.findById",
       """
@@ -202,7 +212,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:15
+    // @LINE:25
     def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.find",
       """
@@ -212,17 +222,21 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:17
+    // @LINE:27
     def findByType: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.findByType",
       """
         function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/users/owners"})
+        
+          if (true) {
+            return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/users/type"})
+          }
+        
         }
       """
     )
   
-    // @LINE:19
+    // @LINE:29
     def login: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Users.login",
       """
@@ -234,7 +248,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:45
+  // @LINE:61
   class ReverseReservations(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -242,7 +256,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:45
+    // @LINE:61
     def save: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Reservations.save",
       """
@@ -252,7 +266,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:46
+    // @LINE:62
     def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Reservations.find",
       """
@@ -262,7 +276,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:47
+    // @LINE:63
     def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Reservations.findById",
       """
@@ -272,7 +286,7 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:48
+    // @LINE:64
     def cancel: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Reservations.cancel",
       """
@@ -302,12 +316,82 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:19
+    def scheduleUpdate: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.scheduleUpdate",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "schedule/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:15
+    def stationAdd: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.stationAdd",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "station"})
+        }
+      """
+    )
+  
     // @LINE:11
+    def companyUpdate: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.companyUpdate",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "company/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:16
+    def stationUpdate: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.stationUpdate",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "station/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:14
     def destinations: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.ViewController.destinations",
       """
         function() {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "destinations"})
+        }
+      """
+    )
+  
+    // @LINE:20
+    def schedules: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.schedules",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "schedules"})
+        }
+      """
+    )
+  
+    // @LINE:18
+    def scheduleAdd: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.scheduleAdd",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "schedule"})
+        }
+      """
+    )
+  
+    // @LINE:21
+    def reservations: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.reservations",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "reservations"})
         }
       """
     )
@@ -328,6 +412,36 @@ package controllers.javascript {
       """
         function() {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "company"})
+        }
+      """
+    )
+  
+    // @LINE:12
+    def destinationAdd: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.destinationAdd",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "destination"})
+        }
+      """
+    )
+  
+    // @LINE:17
+    def stations: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.stations",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "stations"})
+        }
+      """
+    )
+  
+    // @LINE:13
+    def destinationUpdate: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ViewController.destinationUpdate",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "destination/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -354,7 +468,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:35
+  // @LINE:48
   class ReverseStations(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -362,7 +476,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:35
+    // @LINE:49
     def save: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Stations.save",
       """
@@ -372,27 +486,27 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:36
-    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Stations.find",
-      """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/stations"})
-        }
-      """
-    )
-  
-    // @LINE:37
-    def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Stations.findById",
+    // @LINE:48
+    def findStationsByDestination: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Stations.findStationsByDestination",
       """
         function(id0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/station/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destination/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0)) + "/stations"})
         }
       """
     )
   
-    // @LINE:38
+    // @LINE:53
+    def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Stations.delete",
+      """
+        function(id0) {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/station/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0)) + "/delete"})
+        }
+      """
+    )
+  
+    // @LINE:52
     def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Stations.update",
       """
@@ -402,9 +516,29 @@ package controllers.javascript {
       """
     )
   
+    // @LINE:51
+    def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Stations.findById",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/station/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:50
+    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Stations.find",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/stations"})
+        }
+      """
+    )
+  
   }
 
-  // @LINE:30
+  // @LINE:42
   class ReverseDestinations(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -412,7 +546,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:30
+    // @LINE:42
     def save: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Destinations.save",
       """
@@ -422,17 +556,27 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:31
-    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Destinations.find",
+    // @LINE:46
+    def delete: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Destinations.delete",
       """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destinations"})
+        function(id0) {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destination/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0)) + "/delete"})
         }
       """
     )
   
-    // @LINE:32
+    // @LINE:45
+    def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Destinations.update",
+      """
+        function(id0) {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destination/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        }
+      """
+    )
+  
+    // @LINE:44
     def findById: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Destinations.findById",
       """
@@ -442,12 +586,12 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:33
-    def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.Destinations.update",
+    // @LINE:43
+    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.Destinations.find",
       """
-        function(id0) {
-          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destination/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destinations"})
         }
       """
     )

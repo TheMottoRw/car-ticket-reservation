@@ -7,7 +7,7 @@ import static play.mvc.Results.ok;
 
 public class ViewController extends Controller {
     public Result index() {
-        return ok(views.html.companies.render());
+        return redirect("/login");
     }
     public Result signup() {
         return ok(views.html.signup.render());
@@ -30,8 +30,28 @@ public class ViewController extends Controller {
     public Result destinationUpdate(String id) {
         return ok(views.html.destinationUpdate.render());
     }
-
     public Result destinations() {
         return ok(views.html.destinations.render());
+    }
+    public Result stationAdd() {
+        return ok(views.html.stationAdd.render());
+    }
+    public Result stationUpdate(String id) {
+        return ok(views.html.stationUpdate.render());
+    }
+    public Result stations() {
+        return ok(views.html.stations.render());
+    }
+    public Result scheduleAdd() {
+        return ok(views.html.scheduleAdd.render());
+    }
+    public Result scheduleUpdate(String id) {
+        return ok(views.html.scheduleUpdate.render());
+    }
+    public Result schedules() {
+        return ok(views.html.schedules.render());
+    }
+    public Result reservations() {
+        return ok(views.html.reservations.render());
     }
 }

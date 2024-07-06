@@ -7,6 +7,8 @@
                         <h5>Update company information</h5>
                     </div>
                     <div class="card-body">
+                        <div class="alert alert-success" id="responseSuccess" style="display: none"></div>
+                        <div class="alert alert-danger" id="responseFail" style="display: none"></div>
                         <form role="form text-left">
                             <div class="mb-3">
                                 <input type="text" class="form-control" placeholder="Name" id="name" aria-label="Company name" aria-describedby="email-addon">
@@ -27,4 +29,84 @@
         </div>
         @commons.footer()
     </div>
+    <script>
+            window.addEventListener("DOMContentLoaded",function () {
+                const urlArr = getUrlParams();
+                const id = urlArr[urlArr.length - 1];
+                loadById();
+                document.querySelector("#btnUpdate").onclick=()=>{
+                    save();
+                }
+                async function loadById() {
+                    const res = await fetch(`${apiUrl}/user/${id}`)
+                            .then(response => response.json())
+                            .then(result => result)
+                            .catch(error => console.log('error', error));
+                    if (!res.error) {
+                        let obj = res;
+                        document.querySelector("#name").value = obj.name;
+                        document.querySelector("#email").value = obj.email
+                        document.querySelector("#phone").value = obj.phone;
+                    }
+                }
+                function validateForm(obj){
+                    const elFail = document.querySelector("#responseFail"),
+                            elSuccess = document.querySelector("#responseSuccess");
+                    const nameValidation = obj.name.length<=3?{status:false,message:"Invalid company name"}:{status:true},
+                            emailValidation = validateEmailAddress(obj.email),
+                            phoneValidation = validatePhoneNumber(obj.phone);
+
+                    if(!nameValidation.status){
+                        elFail.innerHTML=nameValidation.message;
+                    }else if(!emailValidation.status){
+                        elFail.innerHTML=emailValidation.message;
+                    }else
+                    if(!phoneValidation.status) {
+                        elFail.innerHTML = phoneValidation.message;
+                    }
+                    if(elFail.innerHTML!==""){
+                        elFail.style.display ='block';
+                        elSuccess.style.display ='none';
+                        clearResponse();
+                        return false;
+                    }
+                    return true;
+                }
+
+                async function save() {
+                    const elFail = document.querySelector("#responseFail"),
+                            elSuccess = document.querySelector("#responseSuccess");
+                    const data = {
+                        name: document.querySelector("#name").value,
+                        email: document.querySelector("#email").value,
+                        phone: document.querySelector("#phone").value,
+                        user_type: "company",
+                    }
+                    console.log(validateForm(data));
+                    if(!validateForm(data)) return;
+                    var requestOptions = {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization":`Bearer ${localStorage.getItem("token")}`
+                        }
+                    };
+                    const res = await fetch(`${apiUrl}/user/${id}`, requestOptions)
+                            .then(response => response.json())
+                            .then(result => result)
+                            .catch(error => console.log('error', error));
+                    if (res.status) {
+                        elSuccess.setAttribute("style","display:block");
+                        elFail.setAttribute("style","display:none");
+                        elSuccess.innerHTML = res.message;
+                    } else {
+                        elFail.setAttribute("style", "display:block");
+                        elSuccess.setAttribute("style", "display:none");
+                        elFail.innerHTML = res.message;
+                    }
+                    clearResponse();
+                }
+            })
+    </script>
 }

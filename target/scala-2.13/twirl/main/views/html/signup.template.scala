@@ -88,6 +88,8 @@ Seq[Any](format.raw/*1.1*/("""<!--
               <h5>Create account</h5>
             </div>
             <div class="card-body">
+              <div class="alert alert-success" id="responseSuccess" style="display: none"></div>
+              <div class="alert alert-danger" id="responseFail" style="display: none"></div>
               <form role="form text-left">
                 <div class="mb-3">
                   <input type="text" class="form-control" placeholder="Name" id="name" aria-label="Name" aria-describedby="email-addon">
@@ -99,15 +101,15 @@ Seq[Any](format.raw/*1.1*/("""<!--
                   <input type="number" class="form-control" placeholder="Phone number"  id="phone" aria-label="Email" aria-describedby="phoen-addon">
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                  <input type="password" class="form-control" placeholder="Password" id="password" aria-label="Password" aria-describedby="password-addon">
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Confirm password" aria-label="Password" aria-describedby="password-addon">
+                  <input type="password" class="form-control" placeholder="Confirm password" id="confirmPassword" aria-label="Password" aria-describedby="password-addon">
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" id="btnSignup">Sign up</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Already have an account? <a href=""""),_display_(/*79.81*/routes/*79.87*/.ViewController.login()),format.raw/*79.110*/("""" class="text-dark font-weight-bolder">Sign in</a></p>
+                <p class="text-sm mt-3 mb-0">Already have an account? <a href=""""),_display_(/*81.81*/routes/*81.87*/.ViewController.login()),format.raw/*81.110*/("""" class="text-dark font-weight-bolder">Sign in</a></p>
               </form>
             </div>
           </div>
@@ -124,17 +126,92 @@ Seq[Any](format.raw/*1.1*/("""<!--
   <script src="/static/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) """),format.raw/*96.62*/("""{"""),format.raw/*96.63*/("""
-      """),format.raw/*97.7*/("""var options = """),format.raw/*97.21*/("""{"""),format.raw/*97.22*/("""
-        """),format.raw/*98.9*/("""damping: '0.5'
-      """),format.raw/*99.7*/("""}"""),format.raw/*99.8*/("""
-      """),format.raw/*100.7*/("""Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    """),format.raw/*101.5*/("""}"""),format.raw/*101.6*/("""
-  """),format.raw/*102.3*/("""</script>
+    if (win && document.querySelector('#sidenav-scrollbar')) """),format.raw/*98.62*/("""{"""),format.raw/*98.63*/("""
+      """),format.raw/*99.7*/("""var options = """),format.raw/*99.21*/("""{"""),format.raw/*99.22*/("""
+        """),format.raw/*100.9*/("""damping: '0.5'
+      """),format.raw/*101.7*/("""}"""),format.raw/*101.8*/("""
+      """),format.raw/*102.7*/("""Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    """),format.raw/*103.5*/("""}"""),format.raw/*103.6*/("""
+  """),format.raw/*104.3*/("""</script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  <script src="/static/helper/utils.js"></script>
+  <script src="/static/helper/validators.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded",function () """),format.raw/*112.60*/("""{"""),format.raw/*112.61*/("""
+      """),format.raw/*113.7*/("""document.querySelector("#btnSignup").onclick=()=>"""),format.raw/*113.56*/("""{"""),format.raw/*113.57*/("""
+        """),format.raw/*114.9*/("""signup();
+      """),format.raw/*115.7*/("""}"""),format.raw/*115.8*/("""
+      """),format.raw/*116.7*/("""function validateSignup(obj)"""),format.raw/*116.35*/("""{"""),format.raw/*116.36*/("""
+        """),format.raw/*117.9*/("""const elFail = document.querySelector("#responseFail"),
+                elSuccess = document.querySelector("#responseSuccess");
+        const emailValidation = validateEmailAddress(obj.email),
+                phoneValidation = validatePhoneNumber(obj.phone);
+        if(obj.name.trim().length==0)"""),format.raw/*121.38*/("""{"""),format.raw/*121.39*/("""
+          """),format.raw/*122.11*/("""elFail.innerHTML="Name should not be empty";
+        """),format.raw/*123.9*/("""}"""),format.raw/*123.10*/("""else if(!emailValidation.status)"""),format.raw/*123.42*/("""{"""),format.raw/*123.43*/("""
+          """),format.raw/*124.11*/("""elFail.innerHTML=emailValidation.message;
+        """),format.raw/*125.9*/("""}"""),format.raw/*125.10*/("""else
+        if(!phoneValidation.status) """),format.raw/*126.37*/("""{"""),format.raw/*126.38*/("""
+          """),format.raw/*127.11*/("""elFail.innerHTML = phoneValidation.message;
+        """),format.raw/*128.9*/("""}"""),format.raw/*128.10*/("""
+        """),format.raw/*129.9*/("""if(elFail.innerHTML!=="")"""),format.raw/*129.34*/("""{"""),format.raw/*129.35*/("""
+          """),format.raw/*130.11*/("""elFail.style.display ='block';
+          elSuccess.style.display ='none';
+          clearResponse();
+          return false;
+        """),format.raw/*134.9*/("""}"""),format.raw/*134.10*/("""
+        """),format.raw/*135.9*/("""return true;
+      """),format.raw/*136.7*/("""}"""),format.raw/*136.8*/("""
+
+      """),format.raw/*138.7*/("""async function signup() """),format.raw/*138.31*/("""{"""),format.raw/*138.32*/("""
+        """),format.raw/*139.9*/("""const elFail = document.querySelector("#responseFail"),
+                elSuccess = document.querySelector("#responseSuccess");
+        const data = """),format.raw/*141.22*/("""{"""),format.raw/*141.23*/("""
+          """),format.raw/*142.11*/("""name: document.querySelector("#name").value,
+          email: document.querySelector("#email").value,
+          phone: document.querySelector("#phone").value,
+          password: document.querySelector("#password").value,
+          user_type: "company",
+        """),format.raw/*147.9*/("""}"""),format.raw/*147.10*/("""
+        """),format.raw/*148.9*/("""if(data.password!==document.querySelector("#confirmPassword").value)"""),format.raw/*148.77*/("""{"""),format.raw/*148.78*/("""
+          """),format.raw/*149.11*/("""elFail.innerHTML="Password does not match";
+          elFail.style.display='block';
+          elSuccess.style.display='none';
+          clearResponse();
+        """),format.raw/*153.9*/("""}"""),format.raw/*153.10*/("""
+        """),format.raw/*154.9*/("""if(!validateSignup(data)) return;
+        var requestOptions = """),format.raw/*155.30*/("""{"""),format.raw/*155.31*/("""
+          """),format.raw/*156.11*/("""method: 'POST',
+          body: JSON.stringify(data),
+          headers: """),format.raw/*158.20*/("""{"""),format.raw/*158.21*/("""
+            """),format.raw/*159.13*/(""""Content-Type": "application/json"
+          """),format.raw/*160.11*/("""}"""),format.raw/*160.12*/("""
+        """),format.raw/*161.9*/("""}"""),format.raw/*161.10*/(""";
+        const res = await fetch(`$"""),format.raw/*162.35*/("""{"""),format.raw/*162.36*/("""apiUrl"""),format.raw/*162.42*/("""}"""),format.raw/*162.43*/("""/user`, requestOptions)
+                .then(response => response.json())
+                .then(result => result)
+                .catch(error => console.log('error', error));
+        if (res.status) """),format.raw/*166.25*/("""{"""),format.raw/*166.26*/("""
+          """),format.raw/*167.11*/("""elSuccess.setAttribute("style","display:block");
+          elFail.setAttribute("style","display:none");
+          elSuccess.innerHTML = res.message;
+          document.querySelector("#name").value="";
+          document.querySelector("#phone").value="";
+          document.querySelector("#email").value="";
+          document.querySelector("#password").value="";
+          document.querySelector("#confirmPassword").value="";
+        """),format.raw/*175.9*/("""}"""),format.raw/*175.10*/(""" """),format.raw/*175.11*/("""else """),format.raw/*175.16*/("""{"""),format.raw/*175.17*/("""
+          """),format.raw/*176.11*/("""elFail.setAttribute("style", "display:block");
+          elSuccess.setAttribute("style", "display:none");
+          elFail.innerHTML = res.message;
+        """),format.raw/*179.9*/("""}"""),format.raw/*179.10*/("""
+      """),format.raw/*180.7*/("""}"""),format.raw/*180.8*/("""
+
+    """),format.raw/*182.5*/("""}"""),format.raw/*182.6*/(""")
+  </script>
 </body>
 
 </html>"""))
@@ -154,9 +231,9 @@ Seq[Any](format.raw/*1.1*/("""<!--
               /*
                   -- GENERATED --
                   SOURCE: app/views/signup.scala.html
-                  HASH: 7eda22851cd655e8f86af4d546dd08411f556c88
-                  MATRIX: 990->0|4822->3805|4837->3811|4882->3834|5718->4642|5747->4643|5781->4650|5823->4664|5852->4665|5888->4674|5936->4695|5964->4696|5999->4703|6102->4778|6131->4779|6162->4782
-                  LINES: 32->1|110->79|110->79|110->79|127->96|127->96|128->97|128->97|128->97|129->98|130->99|130->99|131->100|132->101|132->101|133->102
+                  HASH: 856b65e538db2675dea1d2dd6d3e740db809ab23
+                  MATRIX: 990->0|5062->4045|5077->4051|5122->4074|5958->4882|5987->4883|6021->4890|6063->4904|6092->4905|6129->4914|6178->4935|6207->4936|6242->4943|6345->5018|6374->5019|6405->5022|6895->5483|6925->5484|6960->5491|7038->5540|7068->5541|7105->5550|7149->5566|7178->5567|7213->5574|7270->5602|7300->5603|7337->5612|7662->5908|7692->5909|7732->5920|7813->5973|7843->5974|7904->6006|7934->6007|7974->6018|8052->6068|8082->6069|8152->6110|8182->6111|8222->6122|8302->6174|8332->6175|8369->6184|8423->6209|8453->6210|8493->6221|8654->6354|8684->6355|8721->6364|8768->6383|8797->6384|8833->6392|8886->6416|8916->6417|8953->6426|9131->6575|9161->6576|9201->6587|9491->6849|9521->6850|9558->6859|9655->6927|9685->6928|9725->6939|9914->7100|9944->7101|9981->7110|10073->7173|10103->7174|10143->7185|10245->7258|10275->7259|10317->7272|10391->7317|10421->7318|10458->7327|10488->7328|10553->7364|10583->7365|10618->7371|10648->7372|10878->7573|10908->7574|10948->7585|11410->8019|11440->8020|11470->8021|11504->8026|11534->8027|11574->8038|11758->8194|11788->8195|11823->8202|11852->8203|11886->8209|11915->8210
+                  LINES: 32->1|112->81|112->81|112->81|129->98|129->98|130->99|130->99|130->99|131->100|132->101|132->101|133->102|134->103|134->103|135->104|143->112|143->112|144->113|144->113|144->113|145->114|146->115|146->115|147->116|147->116|147->116|148->117|152->121|152->121|153->122|154->123|154->123|154->123|154->123|155->124|156->125|156->125|157->126|157->126|158->127|159->128|159->128|160->129|160->129|160->129|161->130|165->134|165->134|166->135|167->136|167->136|169->138|169->138|169->138|170->139|172->141|172->141|173->142|178->147|178->147|179->148|179->148|179->148|180->149|184->153|184->153|185->154|186->155|186->155|187->156|189->158|189->158|190->159|191->160|191->160|192->161|192->161|193->162|193->162|193->162|193->162|197->166|197->166|198->167|206->175|206->175|206->175|206->175|206->175|207->176|210->179|210->179|211->180|211->180|213->182|213->182
                   -- GENERATED --
               */
           

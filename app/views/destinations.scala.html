@@ -1,13 +1,16 @@
-@layout.main("Registered users")("Destinations") {
+@layout.main("Registered destinations")("Destinations") {
     <div class="container-fluid py-4">
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
-                        <h6>Available destinations</h6>
+                        <h6>Available destinations <a href="@routes.ViewController.destinationAdd()" class="btn btn-dark btn-sm" style="margin-left:70% ">Add destination</a></h6>
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
+
+                            <div class="alert alert-success" id="responseSuccess" style="display: none"></div>
+                            <div class="alert alert-danger" id="responseFail" style="display: none"></div>
                             <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
@@ -22,88 +25,7 @@
                                         <th class="text-secondary opacity-7">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0 ml-2">1</p>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <p class="mb-0 text-secondary">Kigali</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-secondary mb-0">Huye</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-secondary mb-0">3200 RWF</p>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                            <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
-                                                delete
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>
-                                            <p class="font-weight-bold mb-0 ml-2">1</p>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <p class="mb-0 text-secondary">Muhanga</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-secondary mb-0">Ngororero</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-secondary mb-0">1700 RWF</p>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                            <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
-                                                delete
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-
-                                        <td>
-                                            <p class="font-weight-bold mb-0 ml-2">3</p>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <p class="mb-0 text-secondary">Ruhango</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="mb-0 text-secondary">Nyanza</p>
-                                        </td>
-                                        <td>
-                                            <p class="text-secondary mb-0">650 rwf</p>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                            <a href="javascript:;" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user">
-                                                delete
-                                            </a>
-                                        </td>
-                                    </tr>
+                                <tbody id="table-data">
                                 </tbody>
                             </table>
                         </div>
@@ -113,4 +35,97 @@
         </div>
         @commons.footer()
     </div>
+    <script>
+            window.addEventListener("DOMContentLoaded", function () {
+                loadData();
+            });
+
+            async function loadData() {
+                var requestOptions = {
+                    method: 'GET',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization":`Bearer ${localStorage.getItem("token")}`
+                    }
+                };
+                const data = await fetch(`${apiUrl}/destinations`, requestOptions)
+                        .then(response => response.json())
+                        .then(result => result)
+                        .catch(error => console.log('error', error));
+                setContent(data);
+            }
+
+            function setContent(arr) {
+                var data = '';
+                for (var i = 0; i < arr.length; i++) {
+
+                    data+=`<tr>
+
+                        <td>
+                            <p class="font-weight-bold mb-0 ml-2">${i+1}</p>
+                        </td>
+                        <td>
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <p class="mb-0 text-secondary">${arr[i].departure}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="text-secondary mb-0">${arr[i].arrival}</p>
+                        </td>
+                        <td>
+                            <p class="text-secondary mb-0">${arr[i].price} RWF</p>
+                        </td>
+                        <td class="align-middle">
+                            <a href="/destination/${arr[i].id}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit destination">
+                                Edit
+                            </a>
+                            <a href="#" class="text-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete destination" data-id="${arr[i].id}" onclick="confirmDelete(this)">
+                                delete
+                            </a>
+                        </td>
+                    </tr>`
+                }
+                document.querySelector("#table-data").innerHTML = data;
+            }
+
+            async function confirmDelete(obj) {
+                isConfirmed = confirm(`Are you sure you want to deleting destination`)
+                if (!isConfirmed) console.log(`delete of ${obj.getAttribute('data-id')} cancelled`)
+                if (isConfirmed) {
+                    deleteData(obj.getAttribute("data-id"));
+                }
+            }
+
+            async function deleteData(id) {
+                var requestOptions = {
+                    method: 'POST',
+                    body: JSON.stringify({user_id: localStorage.getItem("id")}),
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization":`Bearer ${localStorage.getItem("token")}`
+                    }
+                };
+                console.log(requestOptions)
+                let url = `${apiUrl}/destination/${id}/delete`;
+                const data = await fetch(url, requestOptions)
+                        .then(response => response.json())
+                        .then(result => result)
+                        .catch(error => console.log('error', error));
+                var el = "";
+                if (data.status) {
+                    el = document.getElementById("responseSuccess");
+                    document.getElementById("responseFail").style.display = 'none';
+                    loadData();
+                } else {
+                    el = document.getElementById("responseFail");
+                    document.getElementById("responseSuccess").style.display = 'none';
+                }
+                el.style = 'display:block';
+                el.innerHTML = data.message;
+            }
+
+
+    </script>
 }

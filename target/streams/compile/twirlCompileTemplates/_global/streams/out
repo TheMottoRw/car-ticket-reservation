@@ -1,3 +1,3 @@
-[0m[[0m[31merror[0m] [0m[0m[Error] /home/legion/Documents/Legion/Development/java/car-ticket-reservation/app/views/layout/main.scala.html:19[0m
-[0m[[0m[31merror[0m] [0m[0m        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />: Invalid '@' symbol[0m
-[0m[[0m[31merror[0m] [0m[0m(Compile / [31mtwirlCompileTemplates[0m) Twirl compilation failed[0m
+[error] [Error] /media/asua/Damn/Development/java/car-ticket-reservation/app/views/scheduleAdd.scala.html:56
+[error]     <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>: Expected '}' but found '@'
+[error] (Compile / twirlCompileTemplates) Twirl compilation failed

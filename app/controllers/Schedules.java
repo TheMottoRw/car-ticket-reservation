@@ -34,18 +34,16 @@ public class Schedules extends Controller {
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_OCCURED_MESSAGE)));
             }
             UsersModel company = UsersModel.find.query().where().eq("id",userId).eq("is_deleted",false).findOne();
-            System.out.println("log 00");
             DestinationModel destination = DestinationModel.find.query().where().eq("id", body.get("destination").asText()).eq("is_deleted",false).findOne();
             if (company == null)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, Constants.ERROR_UNAUTHORIZE_OPERATION)));
             if (destination == null)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, Constants.ERROR_DESTINATION_NOTEXIST)));
-            System.out.println("log 01");
             int scheduleExist = ScheduleModel.find.query().where().eq("bus_plate_no",body.get("bus_plate_no").asText()).eq("departure_date",DateUtil.stringToDate(body.get("departure_date").asText()).getTime()).eq("destination_id",body.get("destination").asText()).findCount();
             if (scheduleExist>0)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, Constants.ERROR_STATION_ALREADY_EXIST)));
-            System.out.println("log 02");
             ScheduleModel schedule = new ScheduleModel(body.get("bus_plate_no").asText(),DateUtil.stringToDate(body.get("departure_date").asText()).getTime(),body.get("passenger_limit").asInt(), company,destination);
+            schedule.setDepartureDate(body.get("departure_date").asLong());
             schedule.save();
         }catch(Exception e){
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, e.getMessage())));
@@ -85,7 +83,7 @@ public class Schedules extends Controller {
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, Constants.ERROR_STATION_ALREADY_EXIST)));
             schedule.setBusPlateNo(body.get("bus_plate_no").asText());
             schedule.setPassengerLimit(body.get("passenger_limit").asInt());
-            schedule.setDepartureDate(DateUtil.stringToDate(body.get("departure_date").asText()).getTime());
+            schedule.setDepartureDate(body.get("departure_date").asLong());
             schedule.setUpdatedAt(DateUtil.currentTime());
             schedule.setDestination(destination);
             schedule.update();

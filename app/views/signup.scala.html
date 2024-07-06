@@ -57,6 +57,8 @@
               <h5>Create account</h5>
             </div>
             <div class="card-body">
+              <div class="alert alert-success" id="responseSuccess" style="display: none"></div>
+              <div class="alert alert-danger" id="responseFail" style="display: none"></div>
               <form role="form text-left">
                 <div class="mb-3">
                   <input type="text" class="form-control" placeholder="Name" id="name" aria-label="Name" aria-describedby="email-addon">
@@ -68,13 +70,13 @@
                   <input type="number" class="form-control" placeholder="Phone number"  id="phone" aria-label="Email" aria-describedby="phoen-addon">
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                  <input type="password" class="form-control" placeholder="Password" id="password" aria-label="Password" aria-describedby="password-addon">
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Confirm password" aria-label="Password" aria-describedby="password-addon">
+                  <input type="password" class="form-control" placeholder="Confirm password" id="confirmPassword" aria-label="Password" aria-describedby="password-addon">
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" id="btnSignup">Sign up</button>
                 </div>
                 <p class="text-sm mt-3 mb-0">Already have an account? <a href="@routes.ViewController.login()" class="text-dark font-weight-bolder">Sign in</a></p>
               </form>
@@ -104,6 +106,81 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="/static/assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  <script src="/static/helper/utils.js"></script>
+  <script src="/static/helper/validators.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded",function () {
+      document.querySelector("#btnSignup").onclick=()=>{
+        signup();
+      }
+      function validateSignup(obj){
+        const elFail = document.querySelector("#responseFail"),
+                elSuccess = document.querySelector("#responseSuccess");
+        const emailValidation = validateEmailAddress(obj.email),
+                phoneValidation = validatePhoneNumber(obj.phone);
+        if(obj.name.trim().length==0){
+          elFail.innerHTML="Name should not be empty";
+        }else if(!emailValidation.status){
+          elFail.innerHTML=emailValidation.message;
+        }else
+        if(!phoneValidation.status) {
+          elFail.innerHTML = phoneValidation.message;
+        }
+        if(elFail.innerHTML!==""){
+          elFail.style.display ='block';
+          elSuccess.style.display ='none';
+          clearResponse();
+          return false;
+        }
+        return true;
+      }
+
+      async function signup() {
+        const elFail = document.querySelector("#responseFail"),
+                elSuccess = document.querySelector("#responseSuccess");
+        const data = {
+          name: document.querySelector("#name").value,
+          email: document.querySelector("#email").value,
+          phone: document.querySelector("#phone").value,
+          password: document.querySelector("#password").value,
+          user_type: "company",
+        }
+        if(data.password!==document.querySelector("#confirmPassword").value){
+          elFail.innerHTML="Password does not match";
+          elFail.style.display='block';
+          elSuccess.style.display='none';
+          clearResponse();
+        }
+        if(!validateSignup(data)) return;
+        var requestOptions = {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        };
+        const res = await fetch(`${apiUrl}/user`, requestOptions)
+                .then(response => response.json())
+                .then(result => result)
+                .catch(error => console.log('error', error));
+        if (res.status) {
+          elSuccess.setAttribute("style","display:block");
+          elFail.setAttribute("style","display:none");
+          elSuccess.innerHTML = res.message;
+          document.querySelector("#name").value="";
+          document.querySelector("#phone").value="";
+          document.querySelector("#email").value="";
+          document.querySelector("#password").value="";
+          document.querySelector("#confirmPassword").value="";
+        } else {
+          elFail.setAttribute("style", "display:block");
+          elSuccess.setAttribute("style", "display:none");
+          elFail.innerHTML = res.message;
+        }
+      }
+
+    })
+  </script>
 </body>
 
 </html>
