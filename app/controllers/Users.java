@@ -26,7 +26,7 @@ public class Users extends Controller {
     public static void adminExistence() {
         int count = UsersModel.find.query().where().eq("user_type","admin").findCount();
         if(count == 0) {
-            UsersModel user = new UsersModel("Administrator","admin@yopmail.com","0780000001","admin");
+            UsersModel user = new UsersModel("Administrator","admin@yopmail.com","0780000001","admin",null);
             user.setPassword(BCrypt.hashpw("12345", BCrypt.gensalt(12)));
             user.save();
         }
@@ -34,10 +34,15 @@ public class Users extends Controller {
     public Result save(Http.Request request) {
         try {
             ObjectNode body = (ObjectNode) request.body().asJson();
+            UsersModel company=null;
             if (body == null) {
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_OCCURED_MESSAGE)));
             }
             if(!body.has("password")) body.put("password",12345);
+            if(body.has("company")){
+                company = UsersModel.find.query().where().eq("id",body.get("company").asText()).eq("is_deleted",false).findOne();
+                body.remove("company");
+            }
             String formValidation = validateSignup(body);
             if(!formValidation.equals("valid"))
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, formValidation)));
@@ -53,6 +58,9 @@ public class Users extends Controller {
             String verificationCode = HelperUtil.generateRandomString(6);
             body.put("status", "active");
             UsersModel user = Json.fromJson(body, UsersModel.class);
+            if(company!=null){
+                user.setCompany(company);
+            }
             user.setVerified(true);
             user.setResetVerificationCode(verificationCode);
             user.setResetVerificationCodeExpiration(verificationCodeExp);

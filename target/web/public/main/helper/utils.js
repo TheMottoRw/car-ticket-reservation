@@ -66,52 +66,51 @@ function getDate(d){
 
     return formattedDate;
 }
+function requiresLogin(){
+    var token = localStorage.getItem('token');
+    if(token==null){
+        window.location.href = baseUrl;
+    }
+}
+function enforceRouteGuard(allowed,route){
+    if (allowed.indexOf(route) === -1) {
+        localStorage.clear();
+        window.location = '/login';
+    }
+}
+
 function getLastRoute(){
     var url = document.location.pathname.split("/")
     if (!isNaN(url[url.length - 1])) url.pop();
     return url[url.length - 1];
 }
+
 function routeGuard() {
-    var adminUnique = ["/mis/users", "/mis/user", "/mis/accomodations","/mis/accomodation", "/mis/tours","/mis/tour", "/mis/settings", "/mis/setting", "/mis/dashboard"];
-    var ownerUnique = ["/mis/properties", "/mis/property", "/mis/profile","/mis/properties/pending","/mis/properties/completed","/mis/properties/success","/mis/owdashboard"];
-    var client = ["/mis/profile","/mis/properties/pending","/mis/properties/completed","/mis/properties/success","/mis/accomodations/booking/pending","/mis/accomodations/booking/completed","/mis/tours/booking/pending","/mis/tours/booking/completed","/mis/accomodation/0/bookings","/mis/tour/0/bookings"];
+    requiresLogin();
+    var adminUnique = ["/companies", "/company"];
+    var companyUnique = ["/drivers","/driver","/destinations","/destination","/stations","/station","/schedules","/schedule","/reservations","/reservation",];
+    var driverUnique = [];
     var url = window.location.pathname.split("/")
     if (!isNaN(url[url.length - 1])) url.pop();
     var lastRoute = url.join('/');
 
     if (localStorage.hasOwnProperty("user_type")) {
-        if(localStorage.getItem("is_verified")=="false"){
-            localStorage.clear();
-            alert("Account should be verified");
-            window.location = '/login';
-        }
         switch (localStorage.getItem("user_type")) {
-            case "client":
-                if (client.indexOf(lastRoute) === -1) {
-                    localStorage.clear();
-                    window.location = '/login';
-                }
+            case "admin":
+                enforceRouteGuard(adminUnique,lastRoute);
+                document.getElementById("menu-companies").style.display="block";
 
-                document.getElementById("menu-client-accomodation-bookings").style.display="block";
-                document.getElementById("menu-client-tour-bookings").style.display="block";
                 break;
-            case "owner":
-                if (ownerUnique.indexOf(lastRoute) === -1) {
-                    localStorage.clear();
-                    window.location = '/login';
-                }
-                document.getElementById("menu-properties").style.display="block";
-                document.getElementById("menu-owner-dashboard").style.display="block";
+            case "company":
+                enforceRouteGuard(companyUnique,lastRoute);
+                document.getElementById("menu-drivers").style.display="block";
+                document.getElementById("menu-destinations").style.display="block";
+                document.getElementById("menu-stations").style.display="block";
+                document.getElementById("menu-schedules").style.display="block";
                 break;
             default://admin
-                document.getElementById("menu-admin-dashboard").style.display="block";
-                document.getElementById("menu-users").style.display="block";
-                document.getElementById("menu-properties").style.display="block";
-                document.getElementById("menu-accomodations").style.display="block";
-                document.getElementById("menu-tours").style.display="block";
-                // document.getElementById("menu-accomodation-bookings").style.display="block";
-                // document.getElementById("menu-tour-bookings").style.display="block";
-                document.getElementById("menu-settings").style.display="block";
+                localStorage.clear();
+                window.location = '/login';
         }
     }
 }

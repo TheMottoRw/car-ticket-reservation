@@ -51,6 +51,15 @@ public class ViewController extends Controller {
     public Result schedules() {
         return ok(views.html.schedules.render());
     }
+    public Result driverAdd() {
+        return ok(views.html.driverAdd.render());
+    }
+    public Result driverUpdate(String id) {
+        return ok(views.html.driverUpdate.render());
+    }
+    public Result drivers() {
+        return ok(views.html.drivers.render());
+    }
     public Result reservations() {
         return ok(views.html.reservations.render());
     }

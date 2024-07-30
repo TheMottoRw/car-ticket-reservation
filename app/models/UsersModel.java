@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import helper.DateUtil;
 import io.ebean.Finder;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import play.data.validation.Constraints;
 
@@ -38,13 +40,17 @@ public class UsersModel extends BaseModel{
     private boolean isDeleted;
 
     private long deletedAt= DateUtil.currentTime();
+    @OneToOne
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
+    private UsersModel company;
     public static Finder<Long,UsersModel> find = new Finder<Long,UsersModel>(UsersModel.class);
 
-    public UsersModel(String name, String email, String phone, String userType) {
+    public UsersModel(String name, String email, String phone, String userType,UsersModel company) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.userType = userType;
+        this.company = company;
     }
 
     public String getName() {
@@ -133,6 +139,14 @@ public class UsersModel extends BaseModel{
 
     public void setLastLogin(long lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public UsersModel getCompany() {
+        return company;
+    }
+
+    public void setCompany(UsersModel company) {
+        this.company = company;
     }
 
     public long getCreatedAt() {

@@ -40,42 +40,39 @@ Seq[Any](format.raw/*1.1*/("""<aside class="sidenav navbar navbar-vertical navba
     <hr class="horizontal dark mt-0">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item" id="menu-companies" style="display:none">
                 <a class="nav-link  " href=""""),_display_(/*13.46*/routes/*13.52*/.ViewController.companies()),format.raw/*13.79*/("""">
                     <i class="bi bi-building"></i> Companies
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href=""""),_display_(/*18.44*/routes/*18.50*/.ViewController.destinations()),format.raw/*18.80*/("""">
+            <li class="nav-item" id="menu-drivers" style="display:none">
+                <a class="nav-link  " href=""""),_display_(/*18.46*/routes/*18.52*/.ViewController.drivers()),format.raw/*18.77*/("""">
+                    <i class="bi bi-people"></i> Drivers
+                </a>
+            </li>
+            <li class="nav-item" id="menu-destinations" style="display:none">
+                <a class="nav-link" href=""""),_display_(/*23.44*/routes/*23.50*/.ViewController.destinations()),format.raw/*23.80*/("""">
                     <i class="bi bi-train-front"></i> Destinations
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href=""""),_display_(/*23.44*/routes/*23.50*/.ViewController.stations()),format.raw/*23.76*/("""">
+            <li class="nav-item" id="menu-stations" style="display:none">
+                <a class="nav-link" href=""""),_display_(/*28.44*/routes/*28.50*/.ViewController.stations()),format.raw/*28.76*/("""">
                     <i class="bi bi-stack"></i> Stations
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href=""""),_display_(/*28.44*/routes/*28.50*/.ViewController.schedules()),format.raw/*28.77*/("""">
+            <li class="nav-item" id="menu-schedules" style="display:none">
+                <a class="nav-link" href=""""),_display_(/*33.44*/routes/*33.50*/.ViewController.schedules()),format.raw/*33.77*/("""">
                     <i class="bi bi-clock-fill"></i> Schedules
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href=""""),_display_(/*33.45*/routes/*33.51*/.ViewController.reservations()),format.raw/*33.81*/("""">
+            <li class="nav-item" id="menu-reservations" style="display:none">
+                <a class="nav-link " href=""""),_display_(/*38.45*/routes/*38.51*/.ViewController.reservations()),format.raw/*38.81*/("""">
                     <i class="bi bi-cash"></i> Reservations
                 </a>
             </li>
-"""),format.raw/*37.38*/("""
-"""),format.raw/*38.72*/("""
-"""),format.raw/*39.72*/("""
-"""),format.raw/*40.25*/("""
-"""),format.raw/*41.22*/("""
-            """),format.raw/*42.13*/("""<li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" id="aLogout">
-                    <span class="nav-link-text ms-1"><i class="ni-bold-down"></i>Sign out</span>
+                    <span class="nav-link-text ms-1"><i class="bi bi-box-arrow-in-left"></i> Sign out</span>
                 </a>
             </li>
         </ul>
@@ -98,9 +95,9 @@ Seq[Any](format.raw/*1.1*/("""<aside class="sidenav navbar navbar-vertical navba
               /*
                   -- GENERATED --
                   SOURCE: app/views/commons/sidebar.scala.html
-                  HASH: a100fb5b0834026a2e90f7212916df7ac52fc94c
-                  MATRIX: 999->0|1485->558|1525->571|1890->909|1905->915|1953->942|2160->1122|2175->1128|2226->1158|2439->1344|2454->1350|2501->1376|2704->1552|2719->1558|2767->1585|2977->1768|2992->1774|3043->1804|3173->1943|3202->2015|3231->2087|3260->2112|3289->2134|3330->2147
-                  LINES: 32->1|36->5|37->6|44->13|44->13|44->13|49->18|49->18|49->18|54->23|54->23|54->23|59->28|59->28|59->28|64->33|64->33|64->33|68->37|69->38|70->39|71->40|72->41|73->42
+                  HASH: 8977215777a14d74567c5edcf679efb8ab042425
+                  MATRIX: 999->0|1485->558|1525->571|1931->950|1946->956|1994->983|2242->1204|2257->1210|2303->1235|2550->1455|2565->1461|2616->1491|2869->1717|2884->1723|2931->1749|3175->1966|3190->1972|3238->1999|3492->2226|3507->2232|3558->2262
+                  LINES: 32->1|36->5|37->6|44->13|44->13|44->13|49->18|49->18|49->18|54->23|54->23|54->23|59->28|59->28|59->28|64->33|64->33|64->33|69->38|69->38|69->38
                   -- GENERATED --
               */
           

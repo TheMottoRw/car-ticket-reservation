@@ -18,6 +18,9 @@ GET         /stations                       controllers.ViewController.stations(
 GET         /schedule                       controllers.ViewController.scheduleAdd()
 GET         /schedule/:id                       controllers.ViewController.scheduleUpdate(id:String)
 GET         /schedules                       controllers.ViewController.schedules()
+GET         /driver                       controllers.ViewController.driverAdd()
+GET         /driver/:id                       controllers.ViewController.driverUpdate(id:String)
+GET         /drivers                       controllers.ViewController.drivers()
 GET         /reservations                       controllers.ViewController.reservations()
 
 # API Routes
