@@ -1,0 +1,27 @@
+# Ignore Play generated files
+/target/
+project/target/
+# Ignore IntelliJ IDEA files
+.idea/
+
+# Ignore Eclipse files
+.classpath
+.project
+.settings/
+
+# Ignore SBT build-related files
+.project
+.cache/
+.lib/
+
+# Ignore logs
+logs/
+
+# Ignore user-specific files
+*.iml
+*.log
+*.swp
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
