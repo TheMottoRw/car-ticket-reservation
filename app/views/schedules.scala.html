@@ -82,6 +82,9 @@
                             <p class="text-secondary mb-0">${getDate(arr[i].departure_date)}</p>
                         </td>
                         <td class="align-middle">
+                            <a href="/reservations/${arr[i].id}" class="text-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Reservations">
+                                Reservations
+                            </a>
                             <a href="/schedule/${arr[i].id}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit destination">
                                 Edit
                             </a>

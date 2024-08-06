@@ -21,11 +21,11 @@ class Routes(
   Destinations_5: controllers.Destinations,
   // @LINE:51
   Stations_1: controllers.Stations,
-  // @LINE:58
+  // @LINE:59
   Schedules_0: controllers.Schedules,
-  // @LINE:64
+  // @LINE:66
   Reservations_3: controllers.Reservations,
-  // @LINE:69
+  // @LINE:72
   Assets_6: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
@@ -40,11 +40,11 @@ class Routes(
     Destinations_5: controllers.Destinations,
     // @LINE:51
     Stations_1: controllers.Stations,
-    // @LINE:58
+    // @LINE:59
     Schedules_0: controllers.Schedules,
-    // @LINE:64
+    // @LINE:66
     Reservations_3: controllers.Reservations,
-    // @LINE:69
+    // @LINE:72
     Assets_6: controllers.Assets
   ) = this(errorHandler, ViewController_4, Users_2, Destinations_5, Stations_1, Schedules_0, Reservations_3, Assets_6, "/")
 
@@ -77,7 +77,7 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """driver""", """controllers.ViewController.driverAdd()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """driver/""" + "$" + """id<[^/]+>""", """controllers.ViewController.driverUpdate(id:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """drivers""", """controllers.ViewController.drivers()"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """reservations""", """controllers.ViewController.reservations()"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """reservations/""" + "$" + """scheduleId<[^/]+>""", """controllers.ViewController.reservations(scheduleId:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/user""", """controllers.Users.save(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/users""", """controllers.Users.find(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/user/""" + "$" + """id<[^/]+>""", """controllers.Users.findById(request:Request, id:String)"""),
@@ -102,17 +102,20 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/destination/""" + "$" + """id<[^/]+>/stations""", """controllers.Stations.findStationsByDestination(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/station""", """controllers.Stations.save(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/stations""", """controllers.Stations.find(request:Request)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/stations/hierarchy/""" + "$" + """destinationId<[^/]+>""", """controllers.Stations.findStationsHierarchy(request:Request, destinationId:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/station/""" + "$" + """id<[^/]+>""", """controllers.Stations.findById(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/station/""" + "$" + """id<[^/]+>""", """controllers.Stations.update(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/station/""" + "$" + """id<[^/]+>/delete""", """controllers.Stations.delete(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedule""", """controllers.Schedules.save(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedules""", """controllers.Schedules.find(request:Request)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedules/upcoming""", """controllers.Schedules.findUpcoming(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedule/""" + "$" + """id<[^/]+>""", """controllers.Schedules.findById(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedule/""" + "$" + """id<[^/]+>""", """controllers.Schedules.update(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedule/""" + "$" + """id<[^/]+>/delete""", """controllers.Schedules.delete(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/reserve""", """controllers.Reservations.save(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/reservations""", """controllers.Reservations.find(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/reservation/""" + "$" + """id<[^/]+>""", """controllers.Reservations.findById(request:Request, id:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedule/""" + "$" + """id<[^/]+>/reservations""", """controllers.Reservations.findBySchedule(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/reservation/""" + "$" + """id<[^/]+>/cancel""", """controllers.Reservations.cancel(request:Request, id:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """static/""" + "$" + """file<.+>""", """controllers.Assets.at(path:String = "/public", file:String)"""),
     Nil
@@ -448,17 +451,17 @@ class Routes(
 
   // @LINE:24
   private[this] lazy val controllers_ViewController_reservations18_route = Route("GET",
-    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("reservations")))
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("reservations/"), DynamicPart("scheduleId", """[^/]+""",true)))
   )
   private[this] lazy val controllers_ViewController_reservations18_invoker = createInvoker(
-    ViewController_4.reservations(),
+    ViewController_4.reservations(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.ViewController",
       "reservations",
-      Nil,
+      Seq(classOf[String]),
       "GET",
-      this.prefix + """reservations""",
+      this.prefix + """reservations/""" + "$" + """scheduleId<[^/]+>""",
       """""",
       Seq()
     )
@@ -945,10 +948,30 @@ class Routes(
   )
 
   // @LINE:54
-  private[this] lazy val controllers_Stations_findById43_route = Route("GET",
+  private[this] lazy val controllers_Stations_findStationsHierarchy43_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/stations/hierarchy/"), DynamicPart("destinationId", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_Stations_findStationsHierarchy43_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      Stations_1.findStationsHierarchy(fakeValue[play.mvc.Http.Request], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.Stations",
+      "findStationsHierarchy",
+      Seq(classOf[play.mvc.Http.Request], classOf[String]),
+      "GET",
+      this.prefix + """api/stations/hierarchy/""" + "$" + """destinationId<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:55
+  private[this] lazy val controllers_Stations_findById44_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/station/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_Stations_findById43_invoker = createInvoker(
+  private[this] lazy val controllers_Stations_findById44_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Stations_1.findById(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -964,11 +987,11 @@ class Routes(
     )
   )
 
-  // @LINE:55
-  private[this] lazy val controllers_Stations_update44_route = Route("POST",
+  // @LINE:56
+  private[this] lazy val controllers_Stations_update45_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/station/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_Stations_update44_invoker = createInvoker(
+  private[this] lazy val controllers_Stations_update45_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Stations_1.update(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -984,11 +1007,11 @@ class Routes(
     )
   )
 
-  // @LINE:56
-  private[this] lazy val controllers_Stations_delete45_route = Route("POST",
+  // @LINE:57
+  private[this] lazy val controllers_Stations_delete46_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/station/"), DynamicPart("id", """[^/]+""",true), StaticPart("/delete")))
   )
-  private[this] lazy val controllers_Stations_delete45_invoker = createInvoker(
+  private[this] lazy val controllers_Stations_delete46_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Stations_1.delete(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -1004,11 +1027,11 @@ class Routes(
     )
   )
 
-  // @LINE:58
-  private[this] lazy val controllers_Schedules_save46_route = Route("POST",
+  // @LINE:59
+  private[this] lazy val controllers_Schedules_save47_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedule")))
   )
-  private[this] lazy val controllers_Schedules_save46_invoker = createInvoker(
+  private[this] lazy val controllers_Schedules_save47_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Schedules_0.save(fakeValue[play.mvc.Http.Request]),
@@ -1024,11 +1047,11 @@ class Routes(
     )
   )
 
-  // @LINE:59
-  private[this] lazy val controllers_Schedules_find47_route = Route("GET",
+  // @LINE:60
+  private[this] lazy val controllers_Schedules_find48_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedules")))
   )
-  private[this] lazy val controllers_Schedules_find47_invoker = createInvoker(
+  private[this] lazy val controllers_Schedules_find48_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Schedules_0.find(fakeValue[play.mvc.Http.Request]),
@@ -1044,11 +1067,31 @@ class Routes(
     )
   )
 
-  // @LINE:60
-  private[this] lazy val controllers_Schedules_findById48_route = Route("GET",
+  // @LINE:61
+  private[this] lazy val controllers_Schedules_findUpcoming49_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedules/upcoming")))
+  )
+  private[this] lazy val controllers_Schedules_findUpcoming49_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      Schedules_0.findUpcoming(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.Schedules",
+      "findUpcoming",
+      Seq(classOf[play.mvc.Http.Request]),
+      "GET",
+      this.prefix + """api/schedules/upcoming""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:62
+  private[this] lazy val controllers_Schedules_findById50_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedule/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_Schedules_findById48_invoker = createInvoker(
+  private[this] lazy val controllers_Schedules_findById50_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Schedules_0.findById(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -1064,11 +1107,11 @@ class Routes(
     )
   )
 
-  // @LINE:61
-  private[this] lazy val controllers_Schedules_update49_route = Route("POST",
+  // @LINE:63
+  private[this] lazy val controllers_Schedules_update51_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedule/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_Schedules_update49_invoker = createInvoker(
+  private[this] lazy val controllers_Schedules_update51_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Schedules_0.update(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -1084,11 +1127,11 @@ class Routes(
     )
   )
 
-  // @LINE:62
-  private[this] lazy val controllers_Schedules_delete50_route = Route("POST",
+  // @LINE:64
+  private[this] lazy val controllers_Schedules_delete52_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedule/"), DynamicPart("id", """[^/]+""",true), StaticPart("/delete")))
   )
-  private[this] lazy val controllers_Schedules_delete50_invoker = createInvoker(
+  private[this] lazy val controllers_Schedules_delete52_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Schedules_0.delete(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -1104,11 +1147,11 @@ class Routes(
     )
   )
 
-  // @LINE:64
-  private[this] lazy val controllers_Reservations_save51_route = Route("POST",
+  // @LINE:66
+  private[this] lazy val controllers_Reservations_save53_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/reserve")))
   )
-  private[this] lazy val controllers_Reservations_save51_invoker = createInvoker(
+  private[this] lazy val controllers_Reservations_save53_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Reservations_3.save(fakeValue[play.mvc.Http.Request]),
@@ -1124,11 +1167,11 @@ class Routes(
     )
   )
 
-  // @LINE:65
-  private[this] lazy val controllers_Reservations_find52_route = Route("GET",
+  // @LINE:67
+  private[this] lazy val controllers_Reservations_find54_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/reservations")))
   )
-  private[this] lazy val controllers_Reservations_find52_invoker = createInvoker(
+  private[this] lazy val controllers_Reservations_find54_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Reservations_3.find(fakeValue[play.mvc.Http.Request]),
@@ -1144,11 +1187,11 @@ class Routes(
     )
   )
 
-  // @LINE:66
-  private[this] lazy val controllers_Reservations_findById53_route = Route("GET",
+  // @LINE:68
+  private[this] lazy val controllers_Reservations_findById55_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/reservation/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_Reservations_findById53_invoker = createInvoker(
+  private[this] lazy val controllers_Reservations_findById55_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Reservations_3.findById(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -1164,11 +1207,31 @@ class Routes(
     )
   )
 
-  // @LINE:67
-  private[this] lazy val controllers_Reservations_cancel54_route = Route("POST",
+  // @LINE:69
+  private[this] lazy val controllers_Reservations_findBySchedule56_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/schedule/"), DynamicPart("id", """[^/]+""",true), StaticPart("/reservations")))
+  )
+  private[this] lazy val controllers_Reservations_findBySchedule56_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      Reservations_3.findBySchedule(fakeValue[play.mvc.Http.Request], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.Reservations",
+      "findBySchedule",
+      Seq(classOf[play.mvc.Http.Request], classOf[String]),
+      "GET",
+      this.prefix + """api/schedule/""" + "$" + """id<[^/]+>/reservations""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:70
+  private[this] lazy val controllers_Reservations_cancel57_route = Route("POST",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/reservation/"), DynamicPart("id", """[^/]+""",true), StaticPart("/cancel")))
   )
-  private[this] lazy val controllers_Reservations_cancel54_invoker = createInvoker(
+  private[this] lazy val controllers_Reservations_cancel57_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
       Reservations_3.cancel(fakeValue[play.mvc.Http.Request], fakeValue[String]),
@@ -1184,11 +1247,11 @@ class Routes(
     )
   )
 
-  // @LINE:69
-  private[this] lazy val controllers_Assets_at55_route = Route("GET",
+  // @LINE:72
+  private[this] lazy val controllers_Assets_at58_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("static/"), DynamicPart("file", """.+""",false)))
   )
-  private[this] lazy val controllers_Assets_at55_invoker = createInvoker(
+  private[this] lazy val controllers_Assets_at58_invoker = createInvoker(
     Assets_6.at(fakeValue[String], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -1315,8 +1378,8 @@ class Routes(
   
     // @LINE:24
     case controllers_ViewController_reservations18_route(params@_) =>
-      call { 
-        controllers_ViewController_reservations18_invoker.call(ViewController_4.reservations())
+      call(params.fromPath[String]("scheduleId", None)) { (scheduleId) =>
+        controllers_ViewController_reservations18_invoker.call(ViewController_4.reservations(scheduleId))
       }
   
     // @LINE:27
@@ -1488,93 +1551,114 @@ class Routes(
       }
   
     // @LINE:54
-    case controllers_Stations_findById43_route(params@_) =>
-      call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Stations_findById43_invoker.call(
-          req => Stations_1.findById(req, id))
+    case controllers_Stations_findStationsHierarchy43_route(params@_) =>
+      call(params.fromPath[String]("destinationId", None)) { (destinationId) =>
+        controllers_Stations_findStationsHierarchy43_invoker.call(
+          req => Stations_1.findStationsHierarchy(req, destinationId))
       }
   
     // @LINE:55
-    case controllers_Stations_update44_route(params@_) =>
+    case controllers_Stations_findById44_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Stations_update44_invoker.call(
-          req => Stations_1.update(req, id))
+        controllers_Stations_findById44_invoker.call(
+          req => Stations_1.findById(req, id))
       }
   
     // @LINE:56
-    case controllers_Stations_delete45_route(params@_) =>
+    case controllers_Stations_update45_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Stations_delete45_invoker.call(
+        controllers_Stations_update45_invoker.call(
+          req => Stations_1.update(req, id))
+      }
+  
+    // @LINE:57
+    case controllers_Stations_delete46_route(params@_) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_Stations_delete46_invoker.call(
           req => Stations_1.delete(req, id))
       }
   
-    // @LINE:58
-    case controllers_Schedules_save46_route(params@_) =>
+    // @LINE:59
+    case controllers_Schedules_save47_route(params@_) =>
       call { 
-        controllers_Schedules_save46_invoker.call(
+        controllers_Schedules_save47_invoker.call(
           req => Schedules_0.save(req))
       }
   
-    // @LINE:59
-    case controllers_Schedules_find47_route(params@_) =>
+    // @LINE:60
+    case controllers_Schedules_find48_route(params@_) =>
       call { 
-        controllers_Schedules_find47_invoker.call(
+        controllers_Schedules_find48_invoker.call(
           req => Schedules_0.find(req))
       }
   
-    // @LINE:60
-    case controllers_Schedules_findById48_route(params@_) =>
-      call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Schedules_findById48_invoker.call(
-          req => Schedules_0.findById(req, id))
-      }
-  
     // @LINE:61
-    case controllers_Schedules_update49_route(params@_) =>
-      call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Schedules_update49_invoker.call(
-          req => Schedules_0.update(req, id))
+    case controllers_Schedules_findUpcoming49_route(params@_) =>
+      call { 
+        controllers_Schedules_findUpcoming49_invoker.call(
+          req => Schedules_0.findUpcoming(req))
       }
   
     // @LINE:62
-    case controllers_Schedules_delete50_route(params@_) =>
+    case controllers_Schedules_findById50_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Schedules_delete50_invoker.call(
-          req => Schedules_0.delete(req, id))
+        controllers_Schedules_findById50_invoker.call(
+          req => Schedules_0.findById(req, id))
+      }
+  
+    // @LINE:63
+    case controllers_Schedules_update51_route(params@_) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_Schedules_update51_invoker.call(
+          req => Schedules_0.update(req, id))
       }
   
     // @LINE:64
-    case controllers_Reservations_save51_route(params@_) =>
-      call { 
-        controllers_Reservations_save51_invoker.call(
-          req => Reservations_3.save(req))
-      }
-  
-    // @LINE:65
-    case controllers_Reservations_find52_route(params@_) =>
-      call { 
-        controllers_Reservations_find52_invoker.call(
-          req => Reservations_3.find(req))
+    case controllers_Schedules_delete52_route(params@_) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_Schedules_delete52_invoker.call(
+          req => Schedules_0.delete(req, id))
       }
   
     // @LINE:66
-    case controllers_Reservations_findById53_route(params@_) =>
-      call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Reservations_findById53_invoker.call(
-          req => Reservations_3.findById(req, id))
+    case controllers_Reservations_save53_route(params@_) =>
+      call { 
+        controllers_Reservations_save53_invoker.call(
+          req => Reservations_3.save(req))
       }
   
     // @LINE:67
-    case controllers_Reservations_cancel54_route(params@_) =>
+    case controllers_Reservations_find54_route(params@_) =>
+      call { 
+        controllers_Reservations_find54_invoker.call(
+          req => Reservations_3.find(req))
+      }
+  
+    // @LINE:68
+    case controllers_Reservations_findById55_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_Reservations_cancel54_invoker.call(
-          req => Reservations_3.cancel(req, id))
+        controllers_Reservations_findById55_invoker.call(
+          req => Reservations_3.findById(req, id))
       }
   
     // @LINE:69
-    case controllers_Assets_at55_route(params@_) =>
+    case controllers_Reservations_findBySchedule56_route(params@_) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_Reservations_findBySchedule56_invoker.call(
+          req => Reservations_3.findBySchedule(req, id))
+      }
+  
+    // @LINE:70
+    case controllers_Reservations_cancel57_route(params@_) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_Reservations_cancel57_invoker.call(
+          req => Reservations_3.cancel(req, id))
+      }
+  
+    // @LINE:72
+    case controllers_Assets_at58_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[String]("file", None)) { (path, file) =>
-        controllers_Assets_at55_invoker.call(Assets_6.at(path, file))
+        controllers_Assets_at58_invoker.call(Assets_6.at(path, file))
       }
   }
 }

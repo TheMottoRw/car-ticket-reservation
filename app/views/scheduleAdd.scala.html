@@ -16,6 +16,11 @@
                                 </select>
                             </div>
                             <div class="mb-3">
+                                <select class="form-control" id="driver" aria-label="driver" aria-describedby="driver-addon">
+                                    <option>Select driver</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <input type="text" class="form-control" placeholder="Plate number" id="bus_plate_no" aria-label="bus_plate_no" aria-describedby="email-addon">
                             </div>
                             <div class="mb-3">
@@ -37,6 +42,7 @@
     <script>
             window.addEventListener("DOMContentLoaded",function () {
                 loadDestinations();
+                loadDrivers();
                 document.querySelector("#btnSave").onclick=()=>{
                     save();
                 }
@@ -85,12 +91,35 @@
                     document.querySelector("#destination").innerHTML = options;
 
                 }
+                async function loadDrivers() {
+                    var options = "<option value='0'>Select drivers</option>";
+                    var requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization":`Bearer ${localStorage.getItem("token")}`
+                        }
+                    };
+                    const data = await fetch(`${apiUrl}/users/type?user_type=driver`, requestOptions)
+                            .then(response => {
+                                if(response.status===401) {localStorage.clear(); window.location='/login'};
+                                return response.json();
+                            })
+                            .then(result => result)
+                            .catch(error => console.log('error', error));
+                    for(let i=0;i<data.length;i++){
+                        options+=`<option value="${data[i].id}">${data[i].name} (${data[i].phone})</option>`;
+                    }
+                    document.querySelector("#driver").innerHTML = options;
+
+                }
 
                 async function save() {
                     const elFail = document.querySelector("#responseFail"),
                             elSuccess = document.querySelector("#responseSuccess");
                     const data = {
                         destination: document.querySelector("#destination").value,
+                        driver: document.querySelector("#driver").value,
                         bus_plate_no: document.querySelector("#bus_plate_no").value,
                         passenger_limit: document.querySelector("#passenger_limit").value,
                         departure_date: new Date(document.querySelector("#departure_date").value).getTime()/1000,

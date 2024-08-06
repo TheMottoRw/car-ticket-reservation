@@ -29,16 +29,20 @@ public class ScheduleModel extends BaseModel {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private UsersModel company;
     @OneToOne
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
+    private UsersModel driver;
+    @OneToOne
     @JoinColumn(name = "destination_id", referencedColumnName = "id")
     private DestinationModel destination;
     public static Finder<Long,ScheduleModel> find = new Finder<Long,ScheduleModel>(ScheduleModel.class);
 
-    public ScheduleModel(String busPlateNo, long departureDate, int passengerLimit, UsersModel company, DestinationModel destination) {
+    public ScheduleModel(String busPlateNo, long departureDate, int passengerLimit, UsersModel company, DestinationModel destination, UsersModel driver) {
         this.busPlateNo = busPlateNo;
         this.departureDate = departureDate;
         this.passengerLimit = passengerLimit;
         this.company = company;
         this.destination = destination;
+        this.driver = driver;
     }
 
     public String getBusPlateNo() {
@@ -121,5 +125,13 @@ public class ScheduleModel extends BaseModel {
 
     public void setDestination(DestinationModel destination) {
         this.destination = destination;
+    }
+
+    public UsersModel getDriver() {
+        return driver;
+    }
+
+    public void setDriver(UsersModel driver) {
+        this.driver = driver;
     }
 }

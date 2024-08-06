@@ -19,6 +19,7 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import javax.swing.plaf.basic.ComboPopup;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Reservations extends Controller {
@@ -45,6 +46,7 @@ public class Reservations extends Controller {
             if (reservationExist>0)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, Constants.ERROR_RESERVATION_ALREADY_EXIST)));
             ReservationModel reservation = new ReservationModel(passenger,schedule,station);
+            reservation.setPrice(schedule.getDestination().getPrice());
             reservation.save();
         }catch(Exception e){
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, e.getMessage())));
@@ -59,9 +61,35 @@ public class Reservations extends Controller {
     }
 //    @Security.Authenticated
     public Result find(Http.Request request) {
-//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-        List<ReservationModel> schedules = ReservationModel.find.query().where().eq("is_deleted", false).findList();
-        return ok(Json.toJson(schedules));
+        List<ReservationModel> reservations = new ArrayList<>();
+        try{
+            String type = request.queryString("type").orElse("");
+            String userId = jwtAuthenticator.parseData(request,"id"),
+            userType = jwtAuthenticator.parseData(request,"user_type");
+            if(userType.equals("passenger"))
+             reservations = ReservationModel.find.nativeSql("SELECT r.* FROM reservations r INNER JOIN schedules s ON s.id=r.schedule_id WHERE r.passenger_id='"+userId+"' AND r.status='active' AND "+(type.isEmpty()?"s.departure_date<="+DateUtil.currentTime():"s.departure_date>"+DateUtil.currentTime())).findList();
+            else
+                reservations = ReservationModel.find.query().where().eq("is_deleted",false).eq("status","active").findList();
+        }catch (Exception ex){
+            return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, ex.getMessage())));
+        }
+        return ok(Json.toJson(reservations));
+    }
+
+    //    @Security.Authenticated
+    public Result findBySchedule(Http.Request request,String id) {
+        List<ReservationModel> reservations = new ArrayList<>();
+        try{
+            String userId = jwtAuthenticator.parseData(request,"id"),
+            userType = jwtAuthenticator.parseData(request,"user_type");
+            if(userType.equals("company"))
+                reservations = ReservationModel.find.nativeSql("SELECT r.* FROM reservations r INNER JOIN schedules s ON s.id=r.schedule_id WHERE s.company_id='"+userId+"' AND r.schedule_id='"+id+"' AND r.status='active'").findList();
+            else
+                reservations = ReservationModel.find.nativeSql("SELECT r.* FROM reservations r INNER JOIN schedules s ON s.id=r.schedule_id WHERE AND r.schedule_id='"+id+"'AND r.status='active'").findList();
+        }catch (Exception ex){
+            return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, ex.getMessage())));
+        }
+        return ok(Json.toJson(reservations));
     }
     public Result cancel(Http.Request request,String id) {
         try{
@@ -72,8 +100,7 @@ public class Reservations extends Controller {
             }
             ReservationModel reservation = ReservationModel.find.query().where().eq("id",id).eq("passenger_id",userId).eq("is_deleted",false).findOne();
             if(reservation==null) badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED,Constants.ERROR_RESERVATION_NOTEXIST)));
-            reservation.setDeleted(true);
-            reservation.setDeletedAt(DateUtil.currentTime());
+            reservation.setStatus("cancelled");
             reservation.update();
         }catch(Exception e){
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, e.getMessage())));

@@ -21,7 +21,7 @@ GET         /schedules                       controllers.ViewController.schedule
 GET         /driver                       controllers.ViewController.driverAdd()
 GET         /driver/:id                       controllers.ViewController.driverUpdate(id:String)
 GET         /drivers                       controllers.ViewController.drivers()
-GET         /reservations                       controllers.ViewController.reservations()
+GET         /reservations/:scheduleId                       controllers.ViewController.reservations(scheduleId:String)
 
 # API Routes
 POST        /api/user                           controllers.Users.save(request:Request)
@@ -51,12 +51,14 @@ POST        /api/destination/:id/delete                controllers.Destinations.
 GET         /api/destination/:id/stations                controllers.Stations.findStationsByDestination(request:Request,id:String)
 POST        /api/station                        controllers.Stations.save(request:Request)
 GET         /api/stations                       controllers.Stations.find(request:Request)
+GET         /api/stations/hierarchy/:destinationId                       controllers.Stations.findStationsHierarchy(request:Request,destinationId:String)
 GET         /api/station/:id                    controllers.Stations.findById(request:Request,id:String)
 POST        /api/station/:id                    controllers.Stations.update(request:Request,id:String)
 POST        /api/station/:id/delete                controllers.Stations.delete(request:Request,id:String)
 
 POST        /api/schedule                        controllers.Schedules.save(request:Request)
 GET         /api/schedules                       controllers.Schedules.find(request:Request)
+GET         /api/schedules/upcoming                       controllers.Schedules.findUpcoming(request:Request)
 GET         /api/schedule/:id                    controllers.Schedules.findById(request:Request,id:String)
 POST        /api/schedule/:id                    controllers.Schedules.update(request:Request,id:String)
 POST        /api/schedule/:id/delete                    controllers.Schedules.delete(request:Request,id:String)
@@ -64,6 +66,7 @@ POST        /api/schedule/:id/delete                    controllers.Schedules.de
 POST        /api/reserve                        controllers.Reservations.save(request:Request)
 GET         /api/reservations                       controllers.Reservations.find(request:Request)
 GET         /api/reservation/:id                    controllers.Reservations.findById(request:Request,id:String)
+GET         /api/schedule/:id/reservations                    controllers.Reservations.findBySchedule(request:Request,id:String)
 POST        /api/reservation/:id/cancel                    controllers.Reservations.cancel(request:Request,id:String)
 # Map static resources from the /public folder to the /assets URL path
 GET         /static/*file                       controllers.Assets.at(path="/public", file)

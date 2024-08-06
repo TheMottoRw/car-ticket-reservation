@@ -60,7 +60,7 @@ public class ViewController extends Controller {
     public Result drivers() {
         return ok(views.html.drivers.render());
     }
-    public Result reservations() {
+    public Result reservations(String scheduleId) {
         return ok(views.html.reservations.render());
     }
 }
