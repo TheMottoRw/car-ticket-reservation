@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import javax.swing.plaf.basic.ComboPopup;
 import java.util.List;
 
-public class mysqlReservations extends Controller {
+public class Reservations extends Controller {
     @Inject
     JWTAuthenticator jwtAuthenticator;
 
