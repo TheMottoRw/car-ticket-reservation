@@ -26,14 +26,14 @@ public class ScheduleModel extends BaseModel {
     private boolean isDeleted;
     private long deletedAt = DateUtil.currentTime();
     @OneToOne
+    @JoinColumn(name = "destination_id", referencedColumnName = "id")
+    private DestinationModel destination;
+    @OneToOne
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private UsersModel company;
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
     private UsersModel driver;
-    @OneToOne
-    @JoinColumn(name = "destination_id", referencedColumnName = "id")
-    private DestinationModel destination;
     public static Finder<Long,ScheduleModel> find = new Finder<Long,ScheduleModel>(ScheduleModel.class);
 
     public ScheduleModel(String busPlateNo, long departureDate, int passengerLimit, UsersModel company, DestinationModel destination, UsersModel driver) {

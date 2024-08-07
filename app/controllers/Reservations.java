@@ -84,6 +84,8 @@ public class Reservations extends Controller {
             userType = jwtAuthenticator.parseData(request,"user_type");
             if(userType.equals("company"))
                 reservations = ReservationModel.find.nativeSql("SELECT r.* FROM reservations r INNER JOIN schedules s ON s.id=r.schedule_id WHERE s.company_id='"+userId+"' AND r.schedule_id='"+id+"' AND r.status='active'").findList();
+            else if(userType.equals("driver"))
+                reservations = ReservationModel.find.nativeSql("SELECT r.* FROM reservations r INNER JOIN schedules s ON s.id=r.schedule_id WHERE s.driver_id='"+userId+"' AND r.schedule_id='"+id+"' AND r.status='active'").findList();
             else
                 reservations = ReservationModel.find.nativeSql("SELECT r.* FROM reservations r INNER JOIN schedules s ON s.id=r.schedule_id WHERE AND r.schedule_id='"+id+"'AND r.status='active'").findList();
         }catch (Exception ex){

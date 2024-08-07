@@ -17,6 +17,8 @@
                                             #Count</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
                                             Destination</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            Driver</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Bus</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -71,6 +73,9 @@
                                     <p class="mb-0 text-secondary">${arr[i].destination.departure}-${arr[i].destination.arrival}</p>
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <p class="text-secondary mb-0">${arr[i].driver.name}<br>${arr[i].driver.phone}</p>
                         </td>
                         <td>
                             <p class="text-secondary mb-0">${arr[i].bus_plate_no}</p>

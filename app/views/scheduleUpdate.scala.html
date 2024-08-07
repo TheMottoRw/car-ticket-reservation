@@ -64,15 +64,18 @@
 
                 function validateForm(obj){
                     const elFail = document.querySelector("#responseFail"),
-                            elSuccess = document.querySelector("#responseSuccess");
+                        elSuccess = document.querySelector("#responseSuccess");
                     const passengerLimitValidation = isNaN(obj.passenger_limit) || obj.passenger_limit<=0?{status:false,message:"Invalid passenger lmit"}:{status:true},
-                            busPlateNo = obj.bus_plate_no.length<4?{status:false,message:"Invalid bus plate numer location"}:{status:true},
-                            departureValidation = obj.departure_date<new Date().getTime()/1000?{status:false,message:"Invalid departure time"}:{status:true};
+                        busPlateNo = obj.bus_plate_no.length<4?{status:false,message:"Invalid bus plate number"}:{status:true},
+                        driverValidation = obj.driver=="0"?{status:false,message:"You must select driver"}:{status:true},
+                        departureValidation = obj.departure_date<new Date().getTime()/1000?{status:false,message:"Invalid departure time"}:{status:true};
 
                     if(!departureValidation.status){
                         elFail.innerHTML=departureValidation.message;
                     }else if(!passengerLimitValidation.status){
                         elFail.innerHTML=passengerLimitValidation.message;
+                    }else if(!driverValidation.status){
+                        elFail.innerHTML=driverValidation.message;
                     }else
                     if(!busPlateNo.status) {
                         elFail.innerHTML = busPlateNo.message;
@@ -139,6 +142,7 @@
                         bus_plate_no: document.querySelector("#bus_plate_no").value,
                         passenger_limit: document.querySelector("#passenger_limit").value,
                         departure_date: new Date(document.querySelector("#departure_date").value).getTime()/1000,
+
                     }
                     console.log(validateForm(data));
                     if(!validateForm(data)) return;

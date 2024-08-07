@@ -10,14 +10,14 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers {
 
-  // @LINE:72
+  // @LINE:74
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:72
+    // @LINE:74
     def at(file:String): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "static/" + implicitly[play.api.mvc.PathBindable[String]].unbind("file", file))
@@ -44,19 +44,31 @@ package controllers {
       Call("GET", _prefix + { _defaultPrefix } + "api/schedules/upcoming")
     }
   
-    // @LINE:64
+    // @LINE:63
+    def findHistoryByDriver(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "api/schedules/driver/history")
+    }
+  
+    // @LINE:66
     def delete(id:String): Call = {
       
       Call("POST", _prefix + { _defaultPrefix } + "api/schedule/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)) + "/delete")
     }
   
-    // @LINE:63
+    // @LINE:62
+    def findUpcomingByDriver(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "api/schedules/driver/upcoming")
+    }
+  
+    // @LINE:65
     def update(id:String): Call = {
       
       Call("POST", _prefix + { _defaultPrefix } + "api/schedule/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
     }
   
-    // @LINE:62
+    // @LINE:64
     def findById(id:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "api/schedule/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
@@ -179,38 +191,38 @@ package controllers {
   
   }
 
-  // @LINE:66
+  // @LINE:68
   class ReverseReservations(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:66
+    // @LINE:68
     def save(): Call = {
       
       Call("POST", _prefix + { _defaultPrefix } + "api/reserve")
     }
   
-    // @LINE:70
+    // @LINE:72
     def cancel(id:String): Call = {
       
       Call("POST", _prefix + { _defaultPrefix } + "api/reservation/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)) + "/cancel")
     }
   
-    // @LINE:69
+    // @LINE:71
     def findBySchedule(id:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "api/schedule/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)) + "/reservations")
     }
   
-    // @LINE:68
+    // @LINE:70
     def findById(id:String): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "api/reservation/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
     }
   
-    // @LINE:67
+    // @LINE:69
     def find(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "api/reservations")

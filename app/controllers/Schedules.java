@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ContainerNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import dto.ErrorMessageDTO;
 import dto.SuccessMessageDTO;
@@ -20,6 +21,7 @@ import play.mvc.Security;
 
 import javax.inject.Inject;
 import javax.swing.plaf.basic.ComboPopup;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Schedules extends Controller {
@@ -71,6 +73,33 @@ public class Schedules extends Controller {
         List<ScheduleModel> destinations = ScheduleModel.find.query().where().eq("is_deleted", false).gt("departure_date", DateUtil.currentTime()).findList();
         return ok(Json.toJson(destinations));
     }
+//    @Security.Authenticated
+    public Result findUpcomingByDriver(Http.Request request) {
+        List<ScheduleModel> schedules = new ArrayList<>();
+        try{
+            String userId = jwtAuthenticator.parseData(request,"id"),
+            userType = jwtAuthenticator.parseData(request,"user_type");
+            if(!userType.equals("driver")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
+            schedules = ScheduleModel.find.query().where().eq("is_deleted", false).eq("driver_id", userId).gt("departure_date", DateUtil.currentTime()).findList();
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, ex.getMessage())));
+        }
+        return ok(Json.toJson(schedules));
+    }
+//    @Security.Authenticated
+    public Result findHistoryByDriver(Http.Request request) {
+        List<ScheduleModel> schedules = new ArrayList<>();
+        try{
+            String userId = jwtAuthenticator.parseData(request,"id"),
+            userType = jwtAuthenticator.parseData(request,"user_type");
+            if(!userType.equals("driver")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
+            schedules = ScheduleModel.find.query().where().eq("is_deleted", false).eq("driver_id", userId).lt("departure_date", DateUtil.currentTime()).findList();
+        }catch(Exception ex){
+            return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, ex.getMessage())));
+        }
+        return ok(Json.toJson(schedules));
+    }
     public Result update(Http.Request request,String id) {
         try{
             String userId = jwtAuthenticator.parseData(request,"id");
@@ -98,6 +127,7 @@ public class Schedules extends Controller {
             schedule.setDepartureDate(body.get("departure_date").asLong());
             schedule.setUpdatedAt(DateUtil.currentTime());
             schedule.setDestination(destination);
+            schedule.setDriver(driver);
             schedule.update();
         }catch(Exception e){
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_NOTEXIST, e.getMessage())));

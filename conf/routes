@@ -59,6 +59,8 @@ POST        /api/station/:id/delete                controllers.Stations.delete(r
 POST        /api/schedule                        controllers.Schedules.save(request:Request)
 GET         /api/schedules                       controllers.Schedules.find(request:Request)
 GET         /api/schedules/upcoming                       controllers.Schedules.findUpcoming(request:Request)
+GET         /api/schedules/driver/upcoming                    controllers.Schedules.findUpcomingByDriver(request:Request)
+GET         /api/schedules/driver/history                    controllers.Schedules.findHistoryByDriver(request:Request)
 GET         /api/schedule/:id                    controllers.Schedules.findById(request:Request,id:String)
 POST        /api/schedule/:id                    controllers.Schedules.update(request:Request,id:String)
 POST        /api/schedule/:id/delete                    controllers.Schedules.delete(request:Request,id:String)
