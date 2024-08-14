@@ -18,7 +18,7 @@ class Routes(
   // @LINE:27
   Users_2: controllers.Users,
   // @LINE:45
-  Destinations_5: controllers.Destinations,
+  Destinations_6: controllers.Destinations,
   // @LINE:51
   Stations_1: controllers.Stations,
   // @LINE:59
@@ -26,7 +26,9 @@ class Routes(
   // @LINE:68
   Reservations_3: controllers.Reservations,
   // @LINE:74
-  Assets_6: controllers.Assets,
+  DrivingTracking_5: controllers.DrivingTracking,
+  // @LINE:79
+  Assets_7: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
 
@@ -37,7 +39,7 @@ class Routes(
     // @LINE:27
     Users_2: controllers.Users,
     // @LINE:45
-    Destinations_5: controllers.Destinations,
+    Destinations_6: controllers.Destinations,
     // @LINE:51
     Stations_1: controllers.Stations,
     // @LINE:59
@@ -45,13 +47,15 @@ class Routes(
     // @LINE:68
     Reservations_3: controllers.Reservations,
     // @LINE:74
-    Assets_6: controllers.Assets
-  ) = this(errorHandler, ViewController_4, Users_2, Destinations_5, Stations_1, Schedules_0, Reservations_3, Assets_6, "/")
+    DrivingTracking_5: controllers.DrivingTracking,
+    // @LINE:79
+    Assets_7: controllers.Assets
+  ) = this(errorHandler, ViewController_4, Users_2, Destinations_6, Stations_1, Schedules_0, Reservations_3, DrivingTracking_5, Assets_7, "/")
 
   def withPrefix(addPrefix: String): Routes = {
     val prefix = play.api.routing.Router.concatPrefix(addPrefix, this.prefix)
     router.RoutesPrefix.setPrefix(prefix)
-    new Routes(errorHandler, ViewController_4, Users_2, Destinations_5, Stations_1, Schedules_0, Reservations_3, Assets_6, prefix)
+    new Routes(errorHandler, ViewController_4, Users_2, Destinations_6, Stations_1, Schedules_0, Reservations_3, DrivingTracking_5, Assets_7, prefix)
   }
 
   private[this] val defaultPrefix: String = {
@@ -119,6 +123,9 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/reservation/""" + "$" + """id<[^/]+>""", """controllers.Reservations.findById(request:Request, id:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/schedule/""" + "$" + """id<[^/]+>/reservations""", """controllers.Reservations.findBySchedule(request:Request, id:String)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/reservation/""" + "$" + """id<[^/]+>/cancel""", """controllers.Reservations.cancel(request:Request, id:String)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/drive/start""", """controllers.DrivingTracking.startDriving(request:Request)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/drive/track""", """controllers.DrivingTracking.track(request:Request)"""),
+    ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """api/drive/station/arrival""", """controllers.DrivingTracking.stationArrival(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """static/""" + "$" + """file<.+>""", """controllers.Assets.at(path:String = "/public", file:String)"""),
     Nil
   ).foldLeft(Seq.empty[(String, String, String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -796,7 +803,7 @@ class Routes(
   private[this] lazy val controllers_Destinations_save35_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
-      Destinations_5.save(fakeValue[play.mvc.Http.Request]),
+      Destinations_6.save(fakeValue[play.mvc.Http.Request]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Destinations",
@@ -816,7 +823,7 @@ class Routes(
   private[this] lazy val controllers_Destinations_find36_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
-      Destinations_5.find(fakeValue[play.mvc.Http.Request]),
+      Destinations_6.find(fakeValue[play.mvc.Http.Request]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Destinations",
@@ -836,7 +843,7 @@ class Routes(
   private[this] lazy val controllers_Destinations_findById37_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
-      Destinations_5.findById(fakeValue[play.mvc.Http.Request], fakeValue[String]),
+      Destinations_6.findById(fakeValue[play.mvc.Http.Request], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Destinations",
@@ -856,7 +863,7 @@ class Routes(
   private[this] lazy val controllers_Destinations_update38_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
-      Destinations_5.update(fakeValue[play.mvc.Http.Request], fakeValue[String]),
+      Destinations_6.update(fakeValue[play.mvc.Http.Request], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Destinations",
@@ -876,7 +883,7 @@ class Routes(
   private[this] lazy val controllers_Destinations_delete39_invoker = createInvoker(
     
     (req:play.mvc.Http.Request) =>
-      Destinations_5.delete(fakeValue[play.mvc.Http.Request], fakeValue[String]),
+      Destinations_6.delete(fakeValue[play.mvc.Http.Request], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Destinations",
@@ -1290,11 +1297,71 @@ class Routes(
   )
 
   // @LINE:74
-  private[this] lazy val controllers_Assets_at60_route = Route("GET",
+  private[this] lazy val controllers_DrivingTracking_startDriving60_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/drive/start")))
+  )
+  private[this] lazy val controllers_DrivingTracking_startDriving60_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      DrivingTracking_5.startDriving(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.DrivingTracking",
+      "startDriving",
+      Seq(classOf[play.mvc.Http.Request]),
+      "POST",
+      this.prefix + """api/drive/start""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:75
+  private[this] lazy val controllers_DrivingTracking_track61_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/drive/track")))
+  )
+  private[this] lazy val controllers_DrivingTracking_track61_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      DrivingTracking_5.track(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.DrivingTracking",
+      "track",
+      Seq(classOf[play.mvc.Http.Request]),
+      "GET",
+      this.prefix + """api/drive/track""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:76
+  private[this] lazy val controllers_DrivingTracking_stationArrival62_route = Route("POST",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("api/drive/station/arrival")))
+  )
+  private[this] lazy val controllers_DrivingTracking_stationArrival62_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      DrivingTracking_5.stationArrival(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.DrivingTracking",
+      "stationArrival",
+      Seq(classOf[play.mvc.Http.Request]),
+      "POST",
+      this.prefix + """api/drive/station/arrival""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:79
+  private[this] lazy val controllers_Assets_at63_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("static/"), DynamicPart("file", """.+""",false)))
   )
-  private[this] lazy val controllers_Assets_at60_invoker = createInvoker(
-    Assets_6.at(fakeValue[String], fakeValue[String]),
+  private[this] lazy val controllers_Assets_at63_invoker = createInvoker(
+    Assets_7.at(fakeValue[String], fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.Assets",
@@ -1540,35 +1607,35 @@ class Routes(
     case controllers_Destinations_save35_route(params@_) =>
       call { 
         controllers_Destinations_save35_invoker.call(
-          req => Destinations_5.save(req))
+          req => Destinations_6.save(req))
       }
   
     // @LINE:46
     case controllers_Destinations_find36_route(params@_) =>
       call { 
         controllers_Destinations_find36_invoker.call(
-          req => Destinations_5.find(req))
+          req => Destinations_6.find(req))
       }
   
     // @LINE:47
     case controllers_Destinations_findById37_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
         controllers_Destinations_findById37_invoker.call(
-          req => Destinations_5.findById(req, id))
+          req => Destinations_6.findById(req, id))
       }
   
     // @LINE:48
     case controllers_Destinations_update38_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
         controllers_Destinations_update38_invoker.call(
-          req => Destinations_5.update(req, id))
+          req => Destinations_6.update(req, id))
       }
   
     // @LINE:49
     case controllers_Destinations_delete39_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
         controllers_Destinations_delete39_invoker.call(
-          req => Destinations_5.delete(req, id))
+          req => Destinations_6.delete(req, id))
       }
   
     // @LINE:51
@@ -1712,9 +1779,30 @@ class Routes(
       }
   
     // @LINE:74
-    case controllers_Assets_at60_route(params@_) =>
+    case controllers_DrivingTracking_startDriving60_route(params@_) =>
+      call { 
+        controllers_DrivingTracking_startDriving60_invoker.call(
+          req => DrivingTracking_5.startDriving(req))
+      }
+  
+    // @LINE:75
+    case controllers_DrivingTracking_track61_route(params@_) =>
+      call { 
+        controllers_DrivingTracking_track61_invoker.call(
+          req => DrivingTracking_5.track(req))
+      }
+  
+    // @LINE:76
+    case controllers_DrivingTracking_stationArrival62_route(params@_) =>
+      call { 
+        controllers_DrivingTracking_stationArrival62_invoker.call(
+          req => DrivingTracking_5.stationArrival(req))
+      }
+  
+    // @LINE:79
+    case controllers_Assets_at63_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[String]("file", None)) { (path, file) =>
-        controllers_Assets_at60_invoker.call(Assets_6.at(path, file))
+        controllers_Assets_at63_invoker.call(Assets_7.at(path, file))
       }
   }
 }

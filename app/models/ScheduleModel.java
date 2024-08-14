@@ -20,7 +20,7 @@ public class ScheduleModel extends BaseModel {
     private long departureDate;
     @Constraints.Required
     private int passengerLimit;
-    private String status="closed";
+    private String status;
     private long createdAt = DateUtil.currentTime();
     private long updatedAt = DateUtil.currentTime();
     private boolean isDeleted;

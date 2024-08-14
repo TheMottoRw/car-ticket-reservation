@@ -14,6 +14,7 @@ public class routes {
   public static final controllers.ReverseViewController ViewController = new controllers.ReverseViewController(RoutesPrefix.byNamePrefix());
   public static final controllers.ReverseStations Stations = new controllers.ReverseStations(RoutesPrefix.byNamePrefix());
   public static final controllers.ReverseDestinations Destinations = new controllers.ReverseDestinations(RoutesPrefix.byNamePrefix());
+  public static final controllers.ReverseDrivingTracking DrivingTracking = new controllers.ReverseDrivingTracking(RoutesPrefix.byNamePrefix());
 
   public static class javascript {
     
@@ -24,6 +25,7 @@ public class routes {
     public static final controllers.javascript.ReverseViewController ViewController = new controllers.javascript.ReverseViewController(RoutesPrefix.byNamePrefix());
     public static final controllers.javascript.ReverseStations Stations = new controllers.javascript.ReverseStations(RoutesPrefix.byNamePrefix());
     public static final controllers.javascript.ReverseDestinations Destinations = new controllers.javascript.ReverseDestinations(RoutesPrefix.byNamePrefix());
+    public static final controllers.javascript.ReverseDrivingTracking DrivingTracking = new controllers.javascript.ReverseDrivingTracking(RoutesPrefix.byNamePrefix());
   }
 
 }

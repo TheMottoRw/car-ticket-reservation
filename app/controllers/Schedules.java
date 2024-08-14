@@ -68,6 +68,12 @@ public class Schedules extends Controller {
         return ok(Json.toJson(destinations));
     }
 //    @Security.Authenticated
+    public Result findNextStation(Http.Request request) {
+//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
+        List<ScheduleModel> destinations = ScheduleModel.find.query().where().eq("is_deleted", false).findList();
+        return ok(Json.toJson(destinations));
+    }
+//    @Security.Authenticated
     public Result findUpcoming(Http.Request request) {
 //        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
         List<ScheduleModel> destinations = ScheduleModel.find.query().where().eq("is_deleted", false).gt("departure_date", DateUtil.currentTime()).findList();

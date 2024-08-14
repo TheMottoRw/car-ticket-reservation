@@ -72,26 +72,7 @@ CREATE TABLE `driving` (
   KEY `driver_id` (`driver_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-DROP TABLE IF EXISTS `driving_tracking`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `driving_tracking` (
-                           `id` int NOT NULL AUTO_INCREMENT,
-                           `schedule_id` int DEFAULT NULL,
-                           `current_station` int default null,
-                           `previous` int DEFAULT NULL,
-                           `status` enum("pending","arrived") DEFAULT "pending",
-                           `created_at` bigint DEFAULT NULL,
-                           `updated_at` bigint DEFAULT NULL,
-                           `is_deleted` tinyint(1) DEFAULT '0',
-                           `deleted_at` bigint DEFAULT NULL,
-                           PRIMARY KEY (`id`),
-                           KEY `schedule_id` (`schedule_id`),
-                           KEY `previous` (`previous`),
-                           CONSTRAINT `drive_track_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
-                           CONSTRAINT `drive_track_ibfk_2` FOREIGN KEY (`current_station`) REFERENCES `stations` (`id`),
-                           CONSTRAINT `drive_track_ibfk_3` FOREIGN KEY (`previous`) REFERENCES `stations` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Dumping data for table `driving`
 --
@@ -99,6 +80,43 @@ CREATE TABLE `driving_tracking` (
 LOCK TABLES `driving` WRITE;
 /*!40000 ALTER TABLE `driving` DISABLE KEYS */;
 /*!40000 ALTER TABLE `driving` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `driving_tracking`
+--
+
+DROP TABLE IF EXISTS `driving_tracking`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `driving_tracking` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `schedule_id` int DEFAULT NULL,
+  `current_station` int DEFAULT NULL,
+  `previous` int DEFAULT NULL,
+  `status` enum('pending','arrived') COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `created_at` bigint DEFAULT NULL,
+  `updated_at` bigint DEFAULT NULL,
+  `is_deleted` tinyint(1) DEFAULT '0',
+  `deleted_at` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `schedule_id` (`schedule_id`),
+  KEY `previous` (`previous`),
+  KEY `drive_track_ibfk_2` (`current_station`),
+  CONSTRAINT `drive_track_ibfk_1` FOREIGN KEY (`schedule_id`) REFERENCES `schedules` (`id`),
+  CONSTRAINT `drive_track_ibfk_2` FOREIGN KEY (`current_station`) REFERENCES `stations` (`id`),
+  CONSTRAINT `drive_track_ibfk_3` FOREIGN KEY (`previous`) REFERENCES `stations` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driving_tracking`
+--
+
+LOCK TABLES `driving_tracking` WRITE;
+/*!40000 ALTER TABLE `driving_tracking` DISABLE KEYS */;
+INSERT INTO `driving_tracking` VALUES (1,1,1,NULL,'pending',NULL,NULL,0,NULL),(2,1,2,NULL,'pending',NULL,NULL,0,NULL),(3,1,3,6,'pending',NULL,NULL,0,NULL),(4,1,4,3,'pending',NULL,NULL,0,NULL),(5,1,5,NULL,'pending',NULL,NULL,0,NULL),(6,1,6,5,'pending',NULL,NULL,0,NULL),(7,1,7,4,'pending',NULL,NULL,0,NULL);
+/*!40000 ALTER TABLE `driving_tracking` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -155,7 +173,7 @@ CREATE TABLE `schedules` (
   `departure_time` time DEFAULT NULL,
   `passenger_limit` int DEFAULT NULL,
   `driver_id` int DEFAULT NULL,
-  `status` enum('open','closed') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'closed',
+  `status` enum('pending','inprogress','cancelled','completed','closed') COLLATE utf8mb4_general_ci DEFAULT 'pending',
   `created_at` bigint DEFAULT NULL,
   `updated_at` bigint DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT '0',
@@ -174,7 +192,7 @@ CREATE TABLE `schedules` (
 
 LOCK TABLES `schedules` WRITE;
 /*!40000 ALTER TABLE `schedules` DISABLE KEYS */;
-INSERT INTO `schedules` VALUES (1,4,3,'RAB12ST',1724793300,NULL,22,7,'closed',1720265840,1723023000,0,1720265840),(2,4,3,'RAD23T',1721916000,NULL,30,NULL,'closed',1720267114,1720267114,1,1720267182),(3,4,4,'RAD 210 Q',1723742940,NULL,25,7,'closed',1721572353,1723022993,0,1721572353),(4,4,5,'RAE011F',1726768800,NULL,18,7,'closed',1721572377,1723022986,0,1721572377),(5,4,5,'RAD12S',1726156800,NULL,15,7,'closed',1722953996,1723022979,0,1722953996);
+INSERT INTO `schedules` VALUES (1,4,3,'RAB12ST',1724793300,NULL,22,7,'pending',1720265840,1723023000,0,1720265840),(2,4,3,'RAD23T',1721916000,NULL,30,NULL,'pending',1720267114,1720267114,1,1720267182),(3,4,4,'RAD 210 Q',1723742940,NULL,25,7,'pending',1721572353,1723022993,0,1721572353),(4,4,5,'RAE011F',1726768800,NULL,18,7,'pending',1721572377,1723022986,0,1721572377),(5,4,5,'RAD12S',1726156800,NULL,15,7,'pending',1722953996,1723022979,0,1722953996);
 /*!40000 ALTER TABLE `schedules` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,7 +267,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Administrator','admin@yopmail.com','0780000001','admin','$2a$12$YSfNNYEcYuObHEfVuGXrLutSmrTo74APxMcdgWbMcdmUoVpsPVy.G',1,'201287',1720251154,'active',NULL,1722946645,NULL,1720249290,1720249290,0,1720249290),(2,'Tundra','tundra@yopmail.com','0726154856','company','$2a$12$Z7v1FFkopS6nSBU0OgrGxOjNRpCLIA6gCGCzShwFQd/dFo2Okq55m',1,'iSSL5C',1720252033,'active',NULL,0,NULL,1720250233,1720250233,0,1720250233),(3,'Management  Keran Trippier','keran@yopmail.com','0726153272','company','$2a$12$aADRXFte.bH.os7HaFqUo.RoJRHqa4aWk.9Z4bY3l7eti8Rfmbf7m',1,'NYPiY1',1720252087,'active',NULL,1720250300,NULL,1720250287,1720250287,0,1720250287),(4,'CRVentures','crv@yopmail.com','0726153263','company','$2a$12$JeXSgthP3f3493/HOmR8C.xTuW8Xs7VjPw5FDe.IixsHuO5AtuF/m',1,'C7uWkj',1720262187,'active',NULL,1723022329,NULL,1720260387,1720260387,0,1720260864),(5,'Karere','karere@yopmail.com','0726152478','driver','$2a$12$5ZLyP/K4ZTCMNCOBei9L0.8C2qlB1sr/CO0274QYVGY7XlO5UuOR2',1,'C6ji47',1722364862,'active',NULL,0,NULL,1722363062,1722363062,0,1722363062),(6,'Asua','asua@yopmail.com','0726153048','passenger','$2a$12$c9ncHm0/HtpAMbqlhK0Cue.432SVknpUVNTejygOXqSU4B2.lnX9S',1,'hh0qDl',1722950533,'active',NULL,1723042856,NULL,1722948733,1722948733,0,1722948733),(7,'Patrick byiringiro','patrick@yopmail.com','0726156487','driver','$2a$12$S3P2sHIyQ7/v3Ng4M6IHNee20BIMZQ.Z0gCJQepselZUnK8DH0L0q',1,'mdosfK',1722955686,'active',NULL,1723037591,4,1722953886,1722953886,0,1722953886);
+INSERT INTO `users` VALUES (1,'Administrator','admin@yopmail.com','0780000001','admin','$2a$12$YSfNNYEcYuObHEfVuGXrLutSmrTo74APxMcdgWbMcdmUoVpsPVy.G',1,'201287',1720251154,'active',NULL,1722946645,NULL,1720249290,1720249290,0,1720249290),(2,'Tundra','tundra@yopmail.com','0726154856','company','$2a$12$Z7v1FFkopS6nSBU0OgrGxOjNRpCLIA6gCGCzShwFQd/dFo2Okq55m',1,'iSSL5C',1720252033,'active',NULL,0,NULL,1720250233,1720250233,0,1720250233),(3,'Management  Keran Trippier','keran@yopmail.com','0726153272','company','$2a$12$aADRXFte.bH.os7HaFqUo.RoJRHqa4aWk.9Z4bY3l7eti8Rfmbf7m',1,'NYPiY1',1720252087,'active',NULL,1720250300,NULL,1720250287,1720250287,0,1720250287),(4,'CRVentures','crv@yopmail.com','0726153263','company','$2a$12$JeXSgthP3f3493/HOmR8C.xTuW8Xs7VjPw5FDe.IixsHuO5AtuF/m',1,'C7uWkj',1720262187,'active',NULL,1723022329,NULL,1720260387,1720260387,0,1720260864),(5,'Karere','karere@yopmail.com','0726152478','driver','$2a$12$5ZLyP/K4ZTCMNCOBei9L0.8C2qlB1sr/CO0274QYVGY7XlO5UuOR2',1,'C6ji47',1722364862,'active',NULL,0,NULL,1722363062,1722363062,0,1722363062),(6,'Asua','asua@yopmail.com','0726153048','passenger','$2a$12$c9ncHm0/HtpAMbqlhK0Cue.432SVknpUVNTejygOXqSU4B2.lnX9S',1,'hh0qDl',1722950533,'active',NULL,1723042856,NULL,1722948733,1722948733,0,1722948733),(7,'Patrick byiringiro','patrick@yopmail.com','0726156487','driver','$2a$12$S3P2sHIyQ7/v3Ng4M6IHNee20BIMZQ.Z0gCJQepselZUnK8DH0L0q',1,'mdosfK',1722955686,'active',NULL,1723642492,4,1722953886,1722953886,0,1722953886);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -262,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-07 17:10:07
+-- Dump completed on 2024-08-14 17:03:58

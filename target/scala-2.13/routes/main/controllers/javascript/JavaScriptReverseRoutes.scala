@@ -10,7 +10,7 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers.javascript {
 
-  // @LINE:74
+  // @LINE:79
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -18,7 +18,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:74
+    // @LINE:79
     def at: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.at",
       """
@@ -672,6 +672,46 @@ package controllers.javascript {
       """
         function() {
           return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/destinations"})
+        }
+      """
+    )
+  
+  }
+
+  // @LINE:74
+  class ReverseDrivingTracking(_prefix: => String) {
+
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:74
+    def startDriving: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.DrivingTracking.startDriving",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/drive/start"})
+        }
+      """
+    )
+  
+    // @LINE:75
+    def track: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.DrivingTracking.track",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/drive/track"})
+        }
+      """
+    )
+  
+    // @LINE:76
+    def stationArrival: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.DrivingTracking.stationArrival",
+      """
+        function() {
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api/drive/station/arrival"})
         }
       """
     )

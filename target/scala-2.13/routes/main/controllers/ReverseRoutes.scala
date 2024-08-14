@@ -10,14 +10,14 @@ import _root_.play.libs.F
 // @LINE:6
 package controllers {
 
-  // @LINE:74
+  // @LINE:79
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:74
+    // @LINE:79
     def at(file:String): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "static/" + implicitly[play.api.mvc.PathBindable[String]].unbind("file", file))
@@ -439,6 +439,33 @@ package controllers {
     def find(): Call = {
       
       Call("GET", _prefix + { _defaultPrefix } + "api/destinations")
+    }
+  
+  }
+
+  // @LINE:74
+  class ReverseDrivingTracking(_prefix: => String) {
+    def _defaultPrefix: String = {
+      if (_prefix.endsWith("/")) "" else "/"
+    }
+
+  
+    // @LINE:74
+    def startDriving(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "api/drive/start")
+    }
+  
+    // @LINE:75
+    def track(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "api/drive/track")
+    }
+  
+    // @LINE:76
+    def stationArrival(): Call = {
+      
+      Call("POST", _prefix + { _defaultPrefix } + "api/drive/station/arrival")
     }
   
   }

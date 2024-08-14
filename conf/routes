@@ -70,6 +70,11 @@ GET         /api/reservations                       controllers.Reservations.fin
 GET         /api/reservation/:id                    controllers.Reservations.findById(request:Request,id:String)
 GET         /api/schedule/:id/reservations                    controllers.Reservations.findBySchedule(request:Request,id:String)
 POST        /api/reservation/:id/cancel                    controllers.Reservations.cancel(request:Request,id:String)
+
+POST        /api/drive/start                        controllers.DrivingTracking.startDriving(request:Request)
+GET         /api/drive/track                       controllers.DrivingTracking.track(request:Request)
+POST         /api/drive/station/arrival                    controllers.DrivingTracking.stationArrival(request:Request)
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /static/*file                       controllers.Assets.at(path="/public", file)
 
