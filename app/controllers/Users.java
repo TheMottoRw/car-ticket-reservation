@@ -16,6 +16,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,9 +92,19 @@ public class Users extends Controller {
 
 //    @Security.Authenticated(JWTAuthenticator.class)
     public Result findByType(Http.Request request) {
-//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-        String userType = request.queryString("user_type").get();
-        List<UsersModel> users = UsersModel.find.query().where().eq("user_type", userType).eq("is_deleted", false).findList();
+        List<UsersModel> users = new ArrayList<>();
+        try{
+            String userId = jwtAuthenticator.parseData(request,"id"),
+            userType = jwtAuthenticator.parseData(request,"user_type");
+            String uType = request.queryString("user_type").get();
+            if(userType.equals("company")) {
+                users = UsersModel.find.query().where().eq("user_type", uType).eq("company_id", userId).eq("is_deleted", false).findList();
+            }else{
+                users = UsersModel.find.query().where().eq("user_type", uType).eq("is_deleted", false).findList();
+            }
+        }catch (Exception ex){
+            return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED,ex.getMessage())));
+        }
         return ok(Json.toJson(users));
     }
 

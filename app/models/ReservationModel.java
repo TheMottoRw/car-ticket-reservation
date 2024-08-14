@@ -14,6 +14,7 @@ import play.data.validation.Constraints;
 @Table(name = "reservations")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ReservationModel extends BaseModel {
+    private int price;
     private String status="active";
     private long createdAt = DateUtil.currentTime();
     private long updatedAt = DateUtil.currentTime();
@@ -34,6 +35,14 @@ public class ReservationModel extends BaseModel {
         this.passenger = passenger;
         this.schedule = schedule;
         this.pickupStation = pickupStation;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getStatus() {

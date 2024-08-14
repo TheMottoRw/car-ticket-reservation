@@ -48,6 +48,7 @@ CREATE TABLE `reservations` (
   `passenger_id` int DEFAULT NULL,
   `schedule_id` int DEFAULT NULL,
   `pickup_station` int DEFAULT NULL,
+  `price` int DEFAULT NULL,
   `created_at` bigint DEFAULT NULL,
   `updated_at` bigint DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT '0',

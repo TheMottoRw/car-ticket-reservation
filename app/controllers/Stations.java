@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import dto.CodeLabelDTO;
 import dto.ErrorMessageDTO;
 import dto.SuccessMessageDTO;
 import helper.Constants;
@@ -67,9 +68,18 @@ public class Stations extends Controller {
     }
 //    @Security.Authenticated
     public Result findStationsByDestination(Http.Request request,String destination) {
-//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-        List<StationModel> destinations = StationModel.find.query().where().eq("destination_id", destination).eq("is_deleted", false).findList();
-        return ok(Json.toJson(destinations));
+        List<StationModel> stations = StationModel.find.query().where().eq("destination_id", destination).eq("is_deleted", false).order("previous asc").findList();
+//        if(stations.size()>0){
+//            return ok(Json.toJson(stations.get(0)));
+//        }
+        return ok(Json.toJson(stations));
+    }
+//    @Security.Authenticated
+    public Result findStationsHierarchy(Http.Request request,String destination) {
+        StationModel stations = StationModel.find.nativeSql("SELECT s1.* FROM stations s1 LEFT JOIN stations s2 ON s1.id = s2.previous WHERE s2.previous IS NULL and s1.is_deleted=0 and s1.destination_id='"+destination+"'").findOne();
+        List<StationModel> stationsDesc = StationModel.find.nativeSql("SELECT s1.* FROM stations s1 LEFT JOIN stations s2 ON s1.id = s2.previous WHERE s1.previous IS NULL and s2.is_deleted=0 and s1.destination_id='"+destination+"'").findList();
+
+        return ok(Json.toJson(stations));
     }
     public Result update(Http.Request request,String id) {
         try{

@@ -68,6 +68,7 @@ public class Constants {
     public static String ERROR_RESERVATION_NOTEXIST = "Reservation does not exist";
     public static String ERROR_RESERVATION_ALREADY_EXIST = "Reservation already exist";
     public static String RESERVATION_CANCELLED_MESSAGE = "Reservation cancelled successful";
+    public static String ERROR_DRIVER_NOTEXIST = "Driver does not exist";
 
     // Reviews
     public static String REVIEW_SAVED_MESSAGE = "Review saved successful";
