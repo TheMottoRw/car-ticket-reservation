@@ -1,9 +1,11 @@
 package dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import models.DrivingTrackingModel;
 import models.ScheduleModel;
 import models.StationModel;
-
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DrivingTrackDTO {
     private ScheduleModel schedule;
     private StationModel currentStation;

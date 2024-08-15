@@ -1,9 +1,86 @@
-2024-08-14 21:05:53,453 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-5 - Database [default] initialized
-2024-08-14 21:05:53,468 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-5 - Creating Pool for datasource 'default'
-2024-08-14 21:05:53,498 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-5 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
-2024-08-14 21:05:54,793 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-5 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+2024-08-15 10:44:33,032 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-8 - Database [default] initialized
+2024-08-15 10:44:33,044 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2024-08-15 10:44:33,088 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-8 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 10:44:34,751 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
 
     play.filters.headers.SecurityHeadersFilter
     play.filters.hosts.AllowedHostsFilter
 
-2024-08-14 21:05:54,889 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-5 - Application started (Dev) (no global state)
+2024-08-15 10:44:34,844 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-8 - Application started (Dev) (no global state)
+2024-08-15 10:47:02,820 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-3 - Shutting down connection pool.
+2024-08-15 10:47:02,972 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-8 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 10:47:03,091 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-8 - Database [default] initialized
+2024-08-15 10:47:03,091 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-8 - Creating Pool for datasource 'default'
+2024-08-15 10:47:03,093 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-8 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 10:47:03,240 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-8 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 10:47:03,256 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-8 - Application started (Dev) (no global state)
+2024-08-15 10:52:41,719 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-9 - Shutting down connection pool.
+2024-08-15 10:52:41,795 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-10 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 10:52:41,868 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-10 - Database [default] initialized
+2024-08-15 10:52:41,869 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-10 - Creating Pool for datasource 'default'
+2024-08-15 10:52:41,869 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-10 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 10:52:41,967 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-10 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 10:52:41,978 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-10 - Application started (Dev) (no global state)
+2024-08-15 10:52:57,462 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-3 - Shutting down connection pool.
+2024-08-15 10:52:57,553 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-10 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 10:52:57,634 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-10 - Database [default] initialized
+2024-08-15 10:52:57,635 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-10 - Creating Pool for datasource 'default'
+2024-08-15 10:52:57,636 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-10 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 10:52:57,745 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-10 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 10:52:57,757 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-10 - Application started (Dev) (no global state)
+2024-08-15 10:55:47,230 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-4 - Shutting down connection pool.
+2024-08-15 10:55:47,329 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-22 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 10:55:47,441 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-22 - Database [default] initialized
+2024-08-15 10:55:47,442 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-22 - Creating Pool for datasource 'default'
+2024-08-15 10:55:47,443 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-22 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 10:55:47,566 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-22 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 10:55:47,575 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-22 - Application started (Dev) (no global state)
+2024-08-15 10:58:07,240 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-4 - Shutting down connection pool.
+2024-08-15 10:58:07,327 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-23 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 10:58:07,410 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-23 - Database [default] initialized
+2024-08-15 10:58:07,410 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-23 - Creating Pool for datasource 'default'
+2024-08-15 10:58:07,411 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-23 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 10:58:07,552 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-23 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 10:58:07,560 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-23 - Application started (Dev) (no global state)
+2024-08-15 11:01:01,029 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-7 - Shutting down connection pool.
+2024-08-15 11:01:01,102 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-23 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 11:01:01,210 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-23 - Database [default] initialized
+2024-08-15 11:01:01,211 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-23 - Creating Pool for datasource 'default'
+2024-08-15 11:01:01,212 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-23 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 11:01:01,340 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-23 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 11:01:01,348 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-23 - Application started (Dev) (no global state)
+2024-08-15 11:02:41,996 [INFO] from play.api.db.HikariCPConnectionPool in application-pekko.actor.internal-dispatcher-4 - Shutting down connection pool.
+2024-08-15 11:02:42,074 [INFO] from play.api.http.HttpErrorHandlerExceptions in play-dev-mode-pekko.actor.default-dispatcher-19 - Registering exception handler: guice-provision-exception-handler
+2024-08-15 11:02:42,151 [INFO] from play.api.db.DefaultDBApi in play-dev-mode-pekko.actor.default-dispatcher-19 - Database [default] initialized
+2024-08-15 11:02:42,154 [INFO] from play.api.db.HikariCPConnectionPool in play-dev-mode-pekko.actor.default-dispatcher-19 - Creating Pool for datasource 'default'
+2024-08-15 11:02:42,160 [WARN] from com.zaxxer.hikari.util.DriverDataSource in play-dev-mode-pekko.actor.default-dispatcher-19 - Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2024-08-15 11:02:42,260 [INFO] from play.api.http.EnabledFilters in play-dev-mode-pekko.actor.default-dispatcher-19 - Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2024-08-15 11:02:42,267 [INFO] from play.api.Play in play-dev-mode-pekko.actor.default-dispatcher-19 - Application started (Dev) (no global state)

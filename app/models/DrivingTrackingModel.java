@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 import play.data.validation.Constraints;
 
 @Entity
-@Table(name = "stations")
+@Table(name = "driving_tracking")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DrivingTrackingModel extends BaseModel {
     private String status;
@@ -35,6 +35,7 @@ public class DrivingTrackingModel extends BaseModel {
         this.currentStation = currentStation;
         this.previousStation = previousStation;
     }
+
 
     public String getStatus() {
         return status;
