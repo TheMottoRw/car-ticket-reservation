@@ -1,0 +1,134 @@
+@layout.main("Reservations")("Reservation made") {
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <h6>Reservations made</h6>
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <table class="table align-items-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            #Count</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Passenger</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Pickup station</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                            From-To</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Time</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Bus</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reservations-data">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @commons.footer()
+    </div>
+    <script>
+            window.addEventListener("DOMContentLoaded", function () {
+                const urlArr = getUrlParams();
+                const id = urlArr[urlArr.length - 1];
+                loadData();
+
+                async function loadData() {
+                    var requestOptions = {
+                        method: 'GET',
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization":`Bearer ${localStorage.getItem("token")}`
+                        }
+                    };
+                    const data = await fetch(`${apiUrl}/schedule/${id}/reservations`, requestOptions)
+                            .then(response => response.json())
+                            .then(result => result)
+                            .catch(error => console.log('error', error));
+                    setContent(data);
+                }
+
+                function setContent(arr) {
+                    var data = '';
+                    for (var i = 0; i < arr.length; i++) {
+
+                        data+=`<tr>
+
+                        <th>
+                            <p class="font-weight-bold mb-0 ml-2">${i+1}</p>
+                        </th>
+                        <td>
+                            <p class="text-secondary mb-0">${arr[i].passenger.name}<br>${arr[i].passenger.phone}</p>
+                        </td>
+                        <td>
+                            <p class="text-secondary mb-0">${arr[i].pickup_station.name}</p>
+                        </td>
+                        <td>
+                            <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <p class="mb-0 text-secondary">${arr[i].schedule.destination.departure}-${arr[i].schedule.destination.arrival}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <p class="text-secondary mb-0">${getDate(arr[i].schedule.departure_date)}</p>
+                        </td>
+<td>
+                            <p class="text-secondary mb-0">${arr[i].schedule.bus_plate_no}</p>
+                        </td>
+                    </tr>`
+                    }
+                    document.querySelector("#reservations-data").innerHTML = data;
+                }
+
+                async function confirmDelete(obj) {
+                    isConfirmed = confirm(`Are you sure you want to deleting schedule`)
+                    if (!isConfirmed) console.log(`delete of ${obj.getAttribute('data-id')} cancelled`)
+                    if (isConfirmed) {
+                        deleteData(obj.getAttribute("data-id"));
+                    }
+                }
+
+                async function deleteData(id) {
+                    var requestOptions = {
+                        method: 'POST',
+                        body: JSON.stringify({user_id: localStorage.getItem("id")}),
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization":`Bearer ${localStorage.getItem("token")}`
+                        }
+                    };
+                    console.log(requestOptions)
+                    let url = `${apiUrl}/schedule/${id}/delete`;
+                    const data = await fetch(url, requestOptions)
+                            .then(response => response.json())
+                            .then(result => result)
+                            .catch(error => console.log('error', error));
+                    var el = "";
+                    if (data.status) {
+                        el = document.getElementById("responseSuccess");
+                        document.getElementById("responseFail").style.display = 'none';
+                        loadData();
+                    } else {
+                        el = document.getElementById("responseFail");
+                        document.getElementById("responseSuccess").style.display = 'none';
+                    }
+                    el.style = 'display:block';
+                    el.innerHTML = data.message;
+                }
+            });
+
+
+
+
+    </script>
+
+}
