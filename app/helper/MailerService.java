@@ -16,7 +16,7 @@ public class MailerService {
     public void sendEmail(String to, String subject, String body, String replyTo, String cc) {
         Email email = new Email()
                 .setSubject(subject)
-                .setFrom("APARWA <contact.aoltd@gmail.com>")
+                .setFrom("Smart_Public_Transport_System <itugyrw@gmail.com>")
                 .addReplyTo(replyTo.trim().equals("")?to:replyTo)
                 .addTo(to)
                 // adds attachment

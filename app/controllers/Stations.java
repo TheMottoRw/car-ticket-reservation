@@ -62,8 +62,13 @@ public class Stations extends Controller {
     }
 //    @Security.Authenticated
     public Result find(Http.Request request) {
-//        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-        List<StationModel> destinations = StationModel.find.query().where().eq("is_deleted", false).findList();
+        List<StationModel> destinations;
+        try{
+            String userId = jwtAuthenticator.parseData(request,"id");
+            destinations = StationModel.find.nativeSql("SELECT s.* from stations s INNER JOIN destinations d ON d.id=s.destination_id WHERE  s.is_deleted=0 AND d.company_id='"+userId+"'").findList();
+        }catch (Exception ex){
+            return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, ex.getMessage())));
+        }
         return ok(Json.toJson(destinations));
     }
 //    @Security.Authenticated

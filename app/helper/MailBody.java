@@ -52,10 +52,10 @@ public class MailBody {
                 "    <div class=\"verification-code\"><b>"+code+"</b></div>\n" +
                 "    <p><i>This code will expire after "+expiration+"</i></p>\n" +
                 "    <p>If you did not request this code, you can safely ignore this email.</p>\n" +
-                "    <p>Thank you,<br>AON Ltd</p>\n" +
+                "    <p>Thank you,<br>Smart public transport system</p>\n" +
                 "</div>\n" +
                 "<div class=\"footer\">\n" +
-                "    This email was sent to you by AON Ltd. Please do not reply to this email.\n" +
+                "    This email was sent to you by Smart public transport system. Please do not reply to this email.\n" +
                 "</div>\n" +
                 "</body>\n" +
                 "</html>\n";
@@ -175,7 +175,7 @@ public class MailBody {
                 "    <div class=\"message\">"+message+"\n\n <p style='font-size:17px;font-weight:bold'></p>\n</div>\n" +
                 "</div>\n" +
                 "<div class=\"footer\">\n" +
-                "    Best Regards,<br>AON Ltd.\n" +
+                "    Best Regards,<br>Smart public transport system.\n" +
                 "</div>\n" +
                 "</body>\n" +
                 "</html>\n";

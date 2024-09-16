@@ -34,6 +34,8 @@ public class DrivingTracking extends Controller {
             ScheduleModel schedule = ScheduleModel.find.query().where().eq("id", body.get("schedule").asText()).eq("driver_id", userId).eq("is_deleted", false).findOne();
             if (schedule == null)
                 return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_SCHEDULE_NOTEXIST)));
+            if(!schedule.getStatus().equals("pending"))
+                return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, "Schedule is already "+schedule.getStatus())));
             //create stations tracking
             List<StationModel> driveTrack = StationModel.find.query().where().eq("is_deleted", false).eq("destination_id", schedule.getDestination().getId()).findList();
             for (StationModel station : driveTrack) {

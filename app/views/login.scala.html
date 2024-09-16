@@ -44,7 +44,7 @@
           <div class="row justify-content-center">
             <div class="col-lg-5 text-center mx-auto">
               <h1 class="text-white mb-2 mt-5">Welcome back!</h1>
-              <p class="text-lead text-white">Car ticket reservation.</p>
+              <p class="text-lead text-white">Smart public transport app.</p>
             </div>
           </div>
         </div>
@@ -191,8 +191,14 @@
                 if(obj.verified){
                   if (obj.user_type == "admin")
                     window.location = '/companies';
-                  else
+                  else if (obj.user_type == "company")
                     window.location = '/destinations';
+                  else{
+                    localStorage.clear();
+                    elFail.setAttribute("style", "display:block");
+                    elSuccess.setAttribute("style", "display:none");
+                    elFail.innerHTML = "Not allowed to use web";
+                  }
                 }else{
                   document.getElementById("loginForm").style.display='none';
                   document.getElementById("verifyAccountForm").style.display='block';
