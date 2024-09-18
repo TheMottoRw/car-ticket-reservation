@@ -81,7 +81,7 @@ public class Schedules extends Controller {
 //    @Security.Authenticated
     public Result findUpcoming(Http.Request request) {
 //        if(!jwtAuthenticator.parseData(request,"user_type").equals("admin")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-        List<ScheduleModel> destinations = ScheduleModel.find.query().where().eq("is_deleted", false).gt("departure_date", DateUtil.currentTime()).findList();
+        List<ScheduleModel> destinations = ScheduleModel.find.query().where().eq("is_deleted", false).gt("departure_date", DateUtil.currentTime()).eq("status","pending").findList();
         return ok(Json.toJson(destinations));
     }
 //    @Security.Authenticated
@@ -91,7 +91,7 @@ public class Schedules extends Controller {
             String userId = jwtAuthenticator.parseData(request,"id"),
             userType = jwtAuthenticator.parseData(request,"user_type");
             if(!userType.equals("driver")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-            schedules = ScheduleModel.find.query().where().eq("is_deleted", false).eq("driver_id", userId).gt("departure_date", DateUtil.currentTime()).findList();
+            schedules = ScheduleModel.find.query().where().eq("is_deleted", false).eq("driver_id", userId).gt("departure_date", DateUtil.currentTime()).not().eq("status","completed").endNot().findList();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, ex.getMessage())));
@@ -105,7 +105,7 @@ public class Schedules extends Controller {
             String userId = jwtAuthenticator.parseData(request,"id"),
             userType = jwtAuthenticator.parseData(request,"user_type");
             if(!userType.equals("driver")) return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, Constants.ERROR_UNAUTHORIZE_OPERATION)));
-            schedules = ScheduleModel.find.query().where().eq("is_deleted", false).eq("driver_id", userId).lt("departure_date", DateUtil.currentTime()).findList();
+            schedules = ScheduleModel.find.query().where().eq("is_deleted", false).eq("driver_id", userId).or().eq("status","completed").lt("departure_date", DateUtil.currentTime()).findList();
         }catch(Exception ex){
             return badRequest(Json.toJson(new ErrorMessageDTO(Constants.ERROR_OCCURRED, ex.getMessage())));
         }
